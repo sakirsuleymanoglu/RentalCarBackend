@@ -2,17 +2,6 @@
 C# katmanlı mimari ile araba kiralama uygulaması
 
 
-using Business.Concrete;
-using DataAccess.Concrete.EntityFramework;
-using Entities.Concrete;
-using System;
-
-namespace ConsoleUI
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
             colorManager.Add(new Color
@@ -37,7 +26,3 @@ namespace ConsoleUI
                 ModelYear = DateTime.Now,
                 Description = "BMW kiralık araba"
             }) ;
-
-        }
-    }
-}
