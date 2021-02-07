@@ -1,6 +1,8 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess;
+using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,52 +12,24 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, RentCarContext>, ICarDal
     {
-        public void Add(Car entity)
+        public List<CarDetailsDto> GetCarDetails()
         {
-            using (RentCarContext rentCarContext = new RentCarContext())
+            using (RentCarContext context = new RentCarContext())
             {
-                var addCar = rentCarContext.Entry(entity);
-                addCar.State = EntityState.Added;
-                rentCarContext.SaveChanges();
-            }
-        }
-
-        public void Delete(Car entity)
-        {
-            using (RentCarContext rentCarContext = new RentCarContext())
-            {
-                var deleteCar = rentCarContext.Entry(entity);
-                deleteCar.State = EntityState.Deleted;
-                rentCarContext.SaveChanges();
-            }
-        }
-
-        public Car Get(Expression<Func<Car, bool>> filter)
-        {
-            using (RentCarContext rentCarContext = new RentCarContext())
-            {
-                return rentCarContext.Set<Car>().SingleOrDefault(filter);
-            }
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (RentCarContext rentCarContext = new RentCarContext())
-            {
-                return filter == null ? rentCarContext.Set<Car>().ToList() :
-                    rentCarContext.Set<Car>().Where(filter).ToList();
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            using (RentCarContext rentCarContext = new RentCarContext())
-            {
-                var updateCar = rentCarContext.Entry(entity);
-                updateCar.State = EntityState.Modified;
-                rentCarContext.SaveChanges();
+                var result = from c in context.Cars
+                             join b in context.Brands
+                             on c.BrandId equals b.Id
+                             join co in context.Colors
+                             on c.ColorId equals co.Id
+                             select new CarDetailsDto
+                             {
+                                 BrandName = b.Name,
+                                 ColorName = co.Name,
+                                 DailyPrice = c.DailyPrice
+                             };
+                return result.ToList();
             }
         }
     }
