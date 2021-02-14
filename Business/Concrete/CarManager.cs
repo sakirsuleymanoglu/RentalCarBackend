@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -10,41 +11,34 @@ namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
-        ICarDal _carDal;
-
-        public CarManager(ICarDal carDal)
+        public IResult Add(Car entity)
         {
-            _carDal = carDal;
+            throw new NotImplementedException();
         }
 
-        public void Add(Car entity)
+        public IResult Delete(Car entity)
         {
-            _carDal.Add(entity);
+            throw new NotImplementedException();
         }
 
-        public void Delete(Car entity)
+        public IResult Get(int id)
         {
-            _carDal.Delete(entity);
+            throw new NotImplementedException();
         }
 
-        public Car Get(int id)
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.Get(p => p.Id == id);
-        }
-
-        public List<Car> GetAll()
-        {
-            return _carDal.GetAll();
+            throw new NotImplementedException();
         }
 
         public List<CarDetailsDto> GetCarDetails()
         {
-            return _carDal.GetCarDetails();
+            throw new NotImplementedException();
         }
 
-        public void Update(Car entity)
+        public IResult Update(Car entity)
         {
-            _carDal.Update(entity);
+            throw new NotImplementedException();
         }
     }
 }

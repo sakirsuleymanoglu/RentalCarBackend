@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -9,36 +10,29 @@ namespace Business.Concrete
 {
     public class CustomerManager : ICustomerService
     {
-        ICustomerDal _customerDal;
-
-        public CustomerManager(ICustomerDal customerDal)
+        public IResult Add(Customer entity)
         {
-            _customerDal = customerDal;
+            throw new NotImplementedException();
         }
 
-        public void Add(Customer entity)
+        public IResult Delete(Customer entity)
         {
-            _customerDal.Add(entity);
+            throw new NotImplementedException();
         }
 
-        public void Delete(Customer entity)
+        public IResult Get(int id)
         {
-            _customerDal.Delete(entity);
+            throw new NotImplementedException();
         }
 
-        public Customer Get(int id)
+        public IDataResult<List<Customer>> GetAll()
         {
-            return _customerDal.Get(p => p.Id == id);
+            throw new NotImplementedException();
         }
 
-        public List<Customer> GetAll()
+        public IResult Update(Customer entity)
         {
-            return _customerDal.GetAll();
-        }
-
-        public void Update(Customer entity)
-        {
-            _customerDal.Update(entity);
+            throw new NotImplementedException();
         }
     }
 }

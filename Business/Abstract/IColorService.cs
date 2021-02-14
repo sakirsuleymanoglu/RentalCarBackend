@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IColorService : IEntityService<Color>
+    public interface IColorService
     {
     }
 }

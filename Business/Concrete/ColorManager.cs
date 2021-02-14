@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -9,36 +10,29 @@ namespace Business.Concrete
 {
     public class ColorManager : IColorService
     {
-        IColorDal _colorDal;
-
-        public ColorManager(IColorDal colorDal)
+        public IResult Add(Color entity)
         {
-            _colorDal = colorDal;
+            throw new NotImplementedException();
         }
 
-        public void Add(Color entity)
+        public IResult Delete(Color entity)
         {
-            _colorDal.Add(entity);
+            throw new NotImplementedException();
         }
 
-        public void Delete(Color entity)
+        public IResult Get(int id)
         {
-            _colorDal.Delete(entity);
+            throw new NotImplementedException();
         }
 
-        public Color Get(int id)
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.Get(p => p.Id == id);
+            throw new NotImplementedException();
         }
 
-        public List<Color> GetAll()
+        public IResult Update(Color entity)
         {
-            return _colorDal.GetAll();
-        }
-
-        public void Update(Color entity)
-        {
-            _colorDal.Update(entity);
+            throw new NotImplementedException();
         }
     }
 }
