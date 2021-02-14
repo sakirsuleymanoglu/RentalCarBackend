@@ -9,36 +9,36 @@ namespace Business.Concrete
 {
     public class BrandManager : IBrandService
     {
-        IBrandDal _branDal;
+        IBrandDal _brandDal;
 
         public BrandManager(IBrandDal brandDal)
         {
-            _branDal = brandDal;
+            _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        public void Add(Brand entity)
         {
-            _branDal.Add(brand);
+            _brandDal.Add(entity);
         }
 
-        public void Delete(Brand brand)
+        public void Delete(Brand entity)
         {
-            _branDal.Delete(brand);
+            _brandDal.Delete(entity);
         }
 
         public Brand Get(int id)
         {
-            return _branDal.Get(p => p.Id == id);
+            return _brandDal.Get(p => p.Id == id);
         }
 
         public List<Brand> GetAll()
         {
-            return _branDal.GetAll();
+            return _brandDal.GetAll();
         }
 
-        public void Update(Brand brand)
+        public void Update(Brand entity)
         {
-            _branDal.Update(brand);
+            _brandDal.Update(entity);
         }
     }
 }

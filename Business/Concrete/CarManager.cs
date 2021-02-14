@@ -17,17 +17,14 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public void Add(Car entity)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-            }
+            _carDal.Add(entity);
         }
 
-        public void Delete(Car car)
+        public void Delete(Car entity)
         {
-            _carDal.Delete(car);
+            _carDal.Delete(entity);
         }
 
         public Car Get(int id)
@@ -45,9 +42,9 @@ namespace Business.Concrete
             return _carDal.GetCarDetails();
         }
 
-        public void Update(Car car)
+        public void Update(Car entity)
         {
-            _carDal.Delete(car);
+            _carDal.Update(entity);
         }
     }
 }

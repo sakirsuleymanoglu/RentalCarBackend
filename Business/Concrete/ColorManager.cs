@@ -16,14 +16,14 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Add(Color color)
+        public void Add(Color entity)
         {
-            _colorDal.Add(color);
+            _colorDal.Add(entity);
         }
 
-        public void Delete(Color color)
+        public void Delete(Color entity)
         {
-            _colorDal.Delete(color);
+            _colorDal.Delete(entity);
         }
 
         public Color Get(int id)
@@ -36,9 +36,9 @@ namespace Business.Concrete
             return _colorDal.GetAll();
         }
 
-        public void Update(Color color)
+        public void Update(Color entity)
         {
-            _colorDal.Update(color);
+            _colorDal.Update(entity);
         }
     }
 }

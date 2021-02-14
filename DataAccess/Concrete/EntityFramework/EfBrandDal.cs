@@ -10,8 +10,7 @@ using Core.DataAccess;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfBrandDal : EfEntityRepositoryBase<Brand, RentCarContext>, IBrandDal
+    public class EfBrandDal : EfEntityRepositoryBase<Brand, RentalCarContext>, IBrandDal
     {
-      
     }
 }

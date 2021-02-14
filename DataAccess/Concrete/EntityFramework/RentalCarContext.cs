@@ -6,16 +6,18 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class RentCarContext : DbContext
+    public class RentalCarContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-RCE6ARO\SQLEXPRESS; Database=ArabaKiralama; Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-RCE6ARO\SQLEXPRESS; Database=RentalCar; Trusted_Connection=true");
         }
 
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Color> Colors { get; set; }
-
+        public DbSet<User> Users { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
     }
 }
