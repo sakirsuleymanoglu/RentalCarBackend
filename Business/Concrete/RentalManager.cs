@@ -10,29 +10,41 @@ namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
-        public IResult Add(Rental entity)
+        IRentalDal _rentDal;
+
+        public RentalManager(IRentalDal rentDal)
         {
-            throw new NotImplementedException();
+            _rentDal = rentDal;
         }
 
-        public IResult Delete(Rental entity)
+        public IResult Add(Rental rental)
         {
-            throw new NotImplementedException();
+            _rentDal.Add(rental);
+            return new SuccessResult();
         }
 
-        public IResult Get(int id)
+        public IResult Delete(Rental rental)
         {
-            throw new NotImplementedException();
+            _rentDal.Delete(rental);
+            return new SuccessResult();
+        }
+
+        public IDataResult<Rental> Get(int id)
+        {
+            var result = _rentDal.Get(p=>p.Id == id);
+            return new SuccessDataResult<Rental>(result);
         }
 
         public IDataResult<List<Rental>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _rentDal.GetAll();
+            return new SuccessDataResult<List<Rental>>(result);
         }
 
-        public IResult Update(Rental entity)
+        public IResult Update(Rental rental)
         {
-            throw new NotImplementedException();
+            _rentDal.Update(rental);
+            return new SuccessResult();
         }
     }
 }

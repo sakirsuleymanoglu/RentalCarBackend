@@ -10,29 +10,41 @@ namespace Business.Concrete
 {
     public class CustomerManager : ICustomerService
     {
-        public IResult Add(Customer entity)
+        ICustomerDal _customerDal;
+
+        public CustomerManager(ICustomerDal customerDal)
         {
-            throw new NotImplementedException();
+            _customerDal = customerDal;
         }
 
-        public IResult Delete(Customer entity)
+        public IResult Add(Customer customer)
         {
-            throw new NotImplementedException();
+            _customerDal.Add(customer);
+            return new SuccessResult();
         }
 
-        public IResult Get(int id)
+        public IResult Delete(Customer customer)
         {
-            throw new NotImplementedException();
+            _customerDal.Delete(customer);
+            return new SuccessResult();
+        }
+
+        public IDataResult<Customer> Get(int id)
+        {
+            var result = _customerDal.Get(p => p.Id == id);
+            return new SuccessDataResult<Customer>(result);
         }
 
         public IDataResult<List<Customer>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _customerDal.GetAll();
+            return new SuccessDataResult<List<Customer>>(result);
         }
 
-        public IResult Update(Customer entity)
+        public IResult Update(Customer customer)
         {
-            throw new NotImplementedException();
+            _customerDal.Update(customer);
+            return new SuccessResult();
         }
     }
 }

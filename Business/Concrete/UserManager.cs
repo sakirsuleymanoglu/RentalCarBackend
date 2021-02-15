@@ -10,29 +10,41 @@ namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-        public IResult Add(User entity)
+        IUserDal _userDal;
+
+        public UserManager(IUserDal userDal)
         {
-            throw new NotImplementedException();
+            _userDal = userDal;
         }
 
-        public IResult Delete(User entity)
+        public IResult Add(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Add(user);
+            return new SuccessResult();
         }
 
-        public IResult Get(int id)
+        public IResult Delete(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Delete(user);
+            return new SuccessResult();
+        }
+
+        public IDataResult<User> Get(int id)
+        {
+            var result = _userDal.Get(p => p.Id == id);
+            return new SuccessDataResult<User>(result);
         }
 
         public IDataResult<List<User>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _userDal.GetAll();
+            return new SuccessDataResult<List<User>>(result);
         }
 
-        public IResult Update(User entity)
+        public IResult Update(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Update(user);
+            return new SuccessResult();
         }
     }
 }

@@ -10,29 +10,41 @@ namespace Business.Concrete
 {
     public class ColorManager : IColorService
     {
-        public IResult Add(Color entity)
+        IColorDal _colorDal;
+
+        public ColorManager(IColorDal colorDal)
         {
-            throw new NotImplementedException();
+            _colorDal = colorDal;
         }
 
-        public IResult Delete(Color entity)
+        public IResult Add(Color color)
         {
-            throw new NotImplementedException();
+            _colorDal.Add(color);
+            return new SuccessResult();
         }
 
-        public IResult Get(int id)
+        public IResult Delete(Color color)
         {
-            throw new NotImplementedException();
+            _colorDal.Delete(color);
+            return new SuccessResult();
+        }
+
+        public IDataResult<Color> Get(int id)
+        {
+            var result = _colorDal.Get(p=>p.Id == id);
+            return new SuccessDataResult<Color>(result);
         }
 
         public IDataResult<List<Color>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(result);
         }
 
-        public IResult Update(Color entity)
+        public IResult Update(Color color)
         {
-            throw new NotImplementedException();
+            _colorDal.Update(color);
+            return new SuccessResult();
         }
     }
 }
