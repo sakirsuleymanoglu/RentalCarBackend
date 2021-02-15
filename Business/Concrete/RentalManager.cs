@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -19,8 +20,12 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            _rentDal.Add(rental);
-            return new SuccessResult();
+            if (rental.ReturnDate == DateTime.MinValue)
+            {
+                return new ErrorResult(Messages.AddRentalError);
+            }
+            _rentDal.Add(rental);   
+            return new SuccessResult(Messages.AddRental);
         }
 
         public IResult Delete(Rental rental)
