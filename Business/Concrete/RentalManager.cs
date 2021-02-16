@@ -22,34 +22,42 @@ namespace Business.Concrete
         {
             if (rental.ReturnDate == DateTime.MinValue)
             {
-                return new ErrorResult(Messages.AddRentalError);
+                return new ErrorResult(Messages.ErrorAddRental);
             }
-            _rentDal.Add(rental);   
-            return new SuccessResult(Messages.AddRental);
+            _rentDal.Add(rental);
+            return new SuccessResult(Messages.SuccessAddRental);
         }
 
         public IResult Delete(Rental rental)
         {
             _rentDal.Delete(rental);
-            return new SuccessResult();
+            return new SuccessResult(Messages.SuccessDeleteRental);
         }
 
         public IDataResult<Rental> Get(int id)
         {
-            var result = _rentDal.Get(p=>p.Id == id);
-            return new SuccessDataResult<Rental>(result);
+            var result = _rentDal.Get(p => p.Id == id);
+            if (result == null)
+            {
+                return new ErrorDataResult<Rental>(result, Messages.ErrorGetRentalById);
+            }
+            return new SuccessDataResult<Rental>(result, Messages.SuccessGetRentalById);
         }
 
         public IDataResult<List<Rental>> GetAll()
         {
             var result = _rentDal.GetAll();
-            return new SuccessDataResult<List<Rental>>(result);
+            if (result == null)
+            {
+                return new ErrorDataResult<List<Rental>>(result, Messages.ErrorListRentals);
+            }
+            return new SuccessDataResult<List<Rental>>(result, Messages.SuccessListRentals);
         }
 
         public IResult Update(Rental rental)
         {
             _rentDal.Update(rental);
-            return new SuccessResult();
+            return new SuccessResult(Messages.SuccessUpdateRental);
         }
     }
 }

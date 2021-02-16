@@ -20,32 +20,44 @@ namespace Business.Concrete
 
         public IResult Add(Brand brand)
         {
+            if (brand.Name.Length < 3)
+            {
+                return new ErrorResult(Messages.ErrorAddBrand);
+            }
             _brandDal.Add(brand);
-            return new SuccessResult(Messages.AddBrand);
+            return new SuccessResult(Messages.SuccessAddBrand);
         }
 
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            return new SuccessResult(Messages.DeleteBrand);
+            return new SuccessResult(Messages.SuccessDeleteBrand);
         }
 
         public IDataResult<Brand> Get(int id)
         {
             var result = _brandDal.Get(p => p.Id == id);
-            return new SuccessDataResult<Brand>(result, Messages.GetBrandById);
+            if (result == null)
+            {
+                return new ErrorDataResult<Brand>(Messages.ErrorGetBrandById);
+            }
+            return new SuccessDataResult<Brand>(result, Messages.SuccessGetBrandById);
         }
 
         public IDataResult<List<Brand>> GetAll()
         {
             var result = _brandDal.GetAll();
-            return new SuccessDataResult<List<Brand>>(result, Messages.ListBrands);
+            if (result == null)
+            {
+                return new ErrorDataResult<List<Brand>>(Messages.ErrorListBrands);
+            }
+            return new SuccessDataResult<List<Brand>>(result, Messages.SuccessListBrands);
         }
 
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
-            return new SuccessResult(Messages.UpdateBrand);
+            return new SuccessResult(Messages.SuccessUpdateBrand);
         }
     }
 }
