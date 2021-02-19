@@ -24,32 +24,38 @@ namespace WebAPI.Controllers
         public IActionResult GetUsers()
         {
             var result = _userService.GetAll();
+
             if (result.Success)
             {
                 return Ok(result);
             }
-            return Problem(result.Message);
+
+            return BadRequest(result.Message);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {
             var result = _userService.Get(id);
+
             if (result.Success)
             {
                 return Ok(result);
             }
-            return Problem(result.Message);
+
+            return BadRequest(result.Message);
         }
 
         [HttpPost("add")]
         public IActionResult AddUser(User user)
         {
             var result = _userService.Add(user);
+
             if (result.Success)
             {
                 return Created("", result);
             }
+
             return Problem(result.Message);
         }
 
@@ -57,6 +63,7 @@ namespace WebAPI.Controllers
         public IActionResult DeleteUser(User user)
         {
             var result = _userService.Delete(user);
+
             return Ok(result);
         }
 
@@ -64,6 +71,7 @@ namespace WebAPI.Controllers
         public IActionResult UpdateUser(User user)
         {
             var result = _userService.Update(user);
+
             return Ok(result);
         }
     }

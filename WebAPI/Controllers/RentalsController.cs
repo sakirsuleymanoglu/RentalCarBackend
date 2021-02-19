@@ -24,29 +24,65 @@ namespace WebAPI.Controllers
         public IActionResult GetRentals()
         {
             var result = _rentalService.GetAll();
+
             if (result.Success)
             {
                 return Ok(result);
             }
-            return Problem(result.Message);
+
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getallbycarid/{carid}")]
+        public IActionResult GetRentalsByCarId(int carId)
+        {
+            var result = _rentalService.GetAllByCarId(carId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getallbycustomerid/{customerid}")]
+        public IActionResult GetRentalsByCustomerId(int customerId)
+        {
+            var result = _rentalService.GetAllByCarId(customerId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetRentalById(int id)
         {
             var result = _rentalService.Get(id);
+
             if (result.Success)
             {
                 return Ok(result);
             }
-            return Problem(result.Message);
+
+            return BadRequest(result.Message);
         }
 
         [HttpPost("add")]
         public IActionResult AddRental(Rental rental)
         {
             var result = _rentalService.Add(rental);
-            return Ok(result);
+
+            if (result.Success)
+            {
+                return Created("", result);
+            }
+
+            return Problem(result.Message);
         }
 
 
@@ -54,6 +90,7 @@ namespace WebAPI.Controllers
         public IActionResult DeleteRental(Rental rental)
         {
             var result = _rentalService.Delete(rental);
+
             return Ok(result);
         }
 
@@ -61,6 +98,7 @@ namespace WebAPI.Controllers
         public IActionResult UpdateRental(Rental rental)
         {
             var result = _rentalService.Update(rental);
+
             return Ok(result);
         }
     }

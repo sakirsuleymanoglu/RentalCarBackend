@@ -24,32 +24,77 @@ namespace WebAPI.Controllers
         public IActionResult GetCars()
         {
             var result = _carService.GetAll();
+
             if (result.Success)
             {
                 return Ok(result);
             }
-            return Problem(result.Message);
+
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getallbybrandid/{brandid}")]
+        public IActionResult GetCarsByBrandId(int brandId)
+        {
+            var result = _carService.GetAllByBrandId(brandId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getallbycolorid/{colorid}")]
+        public IActionResult GetCarsByColorId(int colorId)
+        {
+            var result = _carService.GetAllByColorId(colorId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getallbymodelyear/{modelyear}")]
+        public IActionResult GetCarsByModelYear(string modelYear)
+        {
+            var result = _carService.GetAllByModelYear(modelYear);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetCarById(int id)
         {
             var result = _carService.Get(id);
+
             if (result.Success)
             {
                 return Ok(result);
             }
-            return Problem(result.Message);
+
+            return BadRequest(result.Message);
         }
 
         [HttpPost("add")]
         public IActionResult AddCar(Car car)
         {
             var result = _carService.Add(car);
+
             if (result.Success)
             {
                 return Created("", result);
             }
+
             return Problem(result.Message);
         }
 
@@ -57,6 +102,7 @@ namespace WebAPI.Controllers
         public IActionResult DeleteCar(Car car)
         {
             var result = _carService.Delete(car);
+
             return Ok(result);
         }
 
@@ -64,6 +110,7 @@ namespace WebAPI.Controllers
         public IActionResult UpdateCar(Car car)
         {
             var result = _carService.Update(car);
+
             return Ok(result);
         }
     }

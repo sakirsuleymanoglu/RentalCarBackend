@@ -24,32 +24,38 @@ namespace WebAPI.Controllers
         public IActionResult GetCustomers()
         {
             var result = _customerService.GetAll();
+
             if (result.Success)
             {
                 return Ok(result);
             }
-            return Problem(result.Message);
+
+            return BadRequest(result.Message);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetCustomerById(int id)
         {
             var result = _customerService.Get(id);
+
             if (result.Success)
             {
                 return Ok(result);
             }
-            return Problem(result.Message);
+
+            return BadRequest(result.Message);
         }
 
         [HttpPost("add")]
         public IActionResult AddCustomer(Customer customer)
         {
             var result = _customerService.Add(customer);
+
             if (result.Success)
             {
                 return Created("", result);
             }
+
             return Problem(result.Message);
         }
 
@@ -57,6 +63,7 @@ namespace WebAPI.Controllers
         public IActionResult DeleteCustomer(Customer customer)
         {
             var result = _customerService.Delete(customer);
+
             return Ok(result);
         }
 
@@ -64,6 +71,7 @@ namespace WebAPI.Controllers
         public IActionResult UpdateCustomer(Customer customer)
         {
             var result = _customerService.Update(customer);
+
             return Ok(result);
         }
     }
