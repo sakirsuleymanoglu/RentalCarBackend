@@ -7,6 +7,8 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -79,6 +81,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Car>(result, Messages.SuccessGetCarById);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
@@ -92,6 +95,7 @@ namespace Business.Concrete
 
             return new SuccessResult(Messages.SuccessDeleteCar);
         }
+
 
         public IResult Update(Car car)
         {

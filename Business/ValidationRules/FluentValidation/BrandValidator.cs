@@ -6,9 +6,9 @@ using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class BrandValidaton : AbstractValidator<Brand>
+    public class BrandValidator : AbstractValidator<Brand>
     {
-        public BrandValidaton()
+        public BrandValidator()
         {
             RuleFor(b => b.Name).NotEmpty();
         }
