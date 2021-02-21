@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalCar.Entities", "Renta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalCar.DataAccess", "RentalCar.DataAccess\RentalCar.DataAccess.csproj", "{55779E94-0E9A-4ACB-8AA4-61B62E8F4FE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalCar.WebAPI", "RentalCar.WebAPI\RentalCar.WebAPI.csproj", "{702D01E5-A6F7-4DD4-A562-ADD61DDF005A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{55779E94-0E9A-4ACB-8AA4-61B62E8F4FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55779E94-0E9A-4ACB-8AA4-61B62E8F4FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55779E94-0E9A-4ACB-8AA4-61B62E8F4FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{702D01E5-A6F7-4DD4-A562-ADD61DDF005A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{702D01E5-A6F7-4DD4-A562-ADD61DDF005A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{702D01E5-A6F7-4DD4-A562-ADD61DDF005A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{702D01E5-A6F7-4DD4-A562-ADD61DDF005A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
