@@ -1,12 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstract\" />
-    <Folder Include="Concrete\" />
+    <ProjectReference Include="..\RentalCar.Core\RentalCar.Core.csproj" />
+    <ProjectReference Include="..\RentalCar.DataAccess\RentalCar.DataAccess.csproj" />
+    <ProjectReference Include="..\RentalCar.Entities\RentalCar.Entities.csproj" />
   </ItemGroup>
 
 </Project>
