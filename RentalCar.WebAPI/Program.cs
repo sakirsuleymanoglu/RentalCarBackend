@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using RentalCar.Business.DependencyResolvers.Autofac;
 
 namespace RentalCar.WebAPI
 {
@@ -17,8 +20,13 @@ namespace RentalCar.WebAPI
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+             Host.CreateDefaultBuilder(args)
+                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                 .ConfigureContainer<ContainerBuilder>(builder =>
+                     {
+                         builder.RegisterModule(new AutofacBusinessModule());
+                     })
+                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });

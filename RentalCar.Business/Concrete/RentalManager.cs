@@ -29,6 +29,30 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Rental>>(result);
         }
 
+        public IDataResult<List<Rental>> GetAllByCarId(int carId)
+        {
+            var result = _rentalDal.GetAll(r => r.CarId == carId);
+
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<Rental>>();
+            }
+
+            return new SuccessDataResult<List<Rental>>(result);
+        }
+
+        public IDataResult<List<Rental>> GetAllByCustomerId(int customerId)
+        {
+            var result = _rentalDal.GetAll(r => r.CustomerId == customerId);
+
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<Rental>>();
+            }
+
+            return new SuccessDataResult<List<Rental>>(result);
+        }
+
         public IDataResult<Rental> Get(int id)
         {
             var result = _rentalDal.Get(r => r.Id == id);
@@ -58,7 +82,7 @@ namespace RentalCar.Business.Concrete
             }
 
             _rentalDal.Delete(rental);
-            
+
             return new SuccessResult();
         }
 

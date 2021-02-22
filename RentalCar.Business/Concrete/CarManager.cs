@@ -29,6 +29,54 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Car>>(result);
         }
 
+        public IDataResult<List<Car>> GetAllByBranId(int brandId)
+        {
+            var result = _carDal.GetAll(c => c.BrandId == brandId);
+
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<Car>>();
+            }
+
+            return new SuccessDataResult<List<Car>>(result);
+        }
+
+        public IDataResult<List<Car>> GetAllByColorId(int colorId)
+        {
+            var result = _carDal.GetAll(c => c.ColorId == colorId);
+
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<Car>>();
+            }
+
+            return new SuccessDataResult<List<Car>>(result);
+        }
+
+        public IDataResult<List<Car>> GetAllByModelYear(string modelYear)
+        {
+            var result = _carDal.GetAll(c => c.ModelYear == modelYear);
+
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<Car>>();
+            }
+
+            return new SuccessDataResult<List<Car>>(result);
+        }
+
+        public IDataResult<List<Car>> GetAllByModel(string model)
+        {
+            var result = _carDal.GetAll(c => c.Model == model);
+
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<Car>>();
+            }
+
+            return new SuccessDataResult<List<Car>>(result);
+        }
+
         public IDataResult<Car> Get(int id)
         {
             var result = _carDal.Get(c => c.Id == id);

@@ -33,6 +33,58 @@ namespace RentalCar.WebAPI.Controllers
             return NotFound(result);
         }
 
+        [HttpGet("{brandId}")]
+        public IActionResult GetCarsByBrandId(int brandId)
+        {
+            var result = _carService.GetAllByBranId(brandId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return NotFound(result);
+        }
+
+        [HttpGet("{colorId}")]
+        public IActionResult GetCarsByColorId(int colorId)
+        {
+            var result = _carService.GetAllByColorId(colorId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return NotFound(result);
+        }
+
+        [HttpGet("modelYear")]
+        public IActionResult GetCarsByModelYear(string modelYear)
+        {
+            var result = _carService.GetAllByModelYear(modelYear);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return NotFound(result);
+        }
+
+        [HttpGet("{model}")]
+        public IActionResult GetCarsByModel(string model)
+        {
+            var result = _carService.GetAllByModel(model);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return NotFound(result);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetCarById(int id)
         {
