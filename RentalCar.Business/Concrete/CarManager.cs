@@ -57,6 +57,8 @@ namespace RentalCar.Business.Concrete
                 return new ErrorResult();
             }
 
+            _carDal.Delete(result);
+
             return new SuccessResult();
         }
 
@@ -68,6 +70,8 @@ namespace RentalCar.Business.Concrete
             {
                 return new ErrorResult();
             }
+
+            _carDal.Update(result);
 
             return new SuccessResult();
         }
