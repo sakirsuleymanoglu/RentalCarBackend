@@ -53,7 +53,7 @@ namespace RentalCar.WebAPI.Controllers
 
             if (result.Success)
             {
-                return Created("",result);
+                return Created("", result);
             }
 
             return BadRequest(result);
