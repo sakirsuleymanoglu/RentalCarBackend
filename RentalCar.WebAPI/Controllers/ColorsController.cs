@@ -11,19 +11,19 @@ namespace RentalCar.WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class BrandsController : ControllerBase
+    public class ColorsController : ControllerBase
     {
-        private IBrandService _brandService;
+        private IColorService _colorService;
 
-        public BrandsController(IBrandService brandService)
+        public ColorsController(IColorService colorService)
         {
-            _brandService = brandService;
+            _colorService = colorService;
         }
 
         [HttpGet]
-        public IActionResult GetBrands()
+        public IActionResult GetColors()
         {
-            var result = _brandService.GetAll();
+            var result = _colorService.GetAll();
 
             if (result.Success)
             {
@@ -34,9 +34,9 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetBrandById(int id)
+        public IActionResult GetColorById(int id)
         {
-            var result = _brandService.Get(id);
+            var result = _colorService.Get(id);
 
             if (result.Success)
             {
@@ -47,22 +47,22 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddBrand(Brand brand)
+        public IActionResult AddColor(Color color)
         {
-            var result = _brandService.Add(brand);
+            var result = _colorService.Add(color);
 
             if (result.Success)
             {
-                return Created("",result);
+                return Created("", result);
             }
 
             return BadRequest(result);
         }
 
         [HttpDelete]
-        public IActionResult DeleteBrand(Brand brand)
+        public IActionResult DeleteColor(Color color)
         {
-            var result = _brandService.Delete(brand);
+            var result = _colorService.Delete(color);
 
             if (result.Success)
             {
@@ -73,9 +73,9 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateBrand(Brand brand)
+        public IActionResult UpdateColor(Color color)
         {
-            var result = _brandService.Update(brand);
+            var result = _colorService.Update(color);
 
             if (result.Success)
             {

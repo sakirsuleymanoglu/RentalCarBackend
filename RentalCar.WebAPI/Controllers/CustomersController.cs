@@ -11,19 +11,19 @@ namespace RentalCar.WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class BrandsController : ControllerBase
+    public class CustomersController : ControllerBase
     {
-        private IBrandService _brandService;
+        private ICustomerService _customerService;
 
-        public BrandsController(IBrandService brandService)
+        public CustomersController(ICustomerService customerService)
         {
-            _brandService = brandService;
+            _customerService = customerService;
         }
 
         [HttpGet]
-        public IActionResult GetBrands()
+        public IActionResult GetCustomers()
         {
-            var result = _brandService.GetAll();
+            var result = _customerService.GetAll();
 
             if (result.Success)
             {
@@ -34,9 +34,9 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetBrandById(int id)
+        public IActionResult GetCustomerById(int id)
         {
-            var result = _brandService.Get(id);
+            var result = _customerService.Get(id);
 
             if (result.Success)
             {
@@ -47,22 +47,22 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddBrand(Brand brand)
+        public IActionResult AddCustomer(Customer customer)
         {
-            var result = _brandService.Add(brand);
+            var result = _customerService.Add(customer);
 
             if (result.Success)
             {
-                return Created("",result);
+                return Created("", result);
             }
 
             return BadRequest(result);
         }
 
         [HttpDelete]
-        public IActionResult DeleteBrand(Brand brand)
+        public IActionResult DeleteCustomer(Customer customer)
         {
-            var result = _brandService.Delete(brand);
+            var result = _customerService.Delete(customer);
 
             if (result.Success)
             {
@@ -73,9 +73,9 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateBrand(Brand brand)
+        public IActionResult UpdateCustomer(Customer customer)
         {
-            var result = _brandService.Update(brand);
+            var result = _customerService.Update(customer);
 
             if (result.Success)
             {

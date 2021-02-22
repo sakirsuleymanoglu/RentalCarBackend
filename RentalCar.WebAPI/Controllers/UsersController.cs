@@ -11,19 +11,19 @@ namespace RentalCar.WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class BrandsController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private IBrandService _brandService;
+        private IUserService _userService;
 
-        public BrandsController(IBrandService brandService)
+        public UsersController(IUserService userService)
         {
-            _brandService = brandService;
+            _userService = userService;
         }
 
         [HttpGet]
-        public IActionResult GetBrands()
+        public IActionResult GetUsers()
         {
-            var result = _brandService.GetAll();
+            var result = _userService.GetAll();
 
             if (result.Success)
             {
@@ -34,9 +34,9 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetBrandById(int id)
+        public IActionResult GetUserById(int id)
         {
-            var result = _brandService.Get(id);
+            var result = _userService.Get(id);
 
             if (result.Success)
             {
@@ -47,22 +47,22 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddBrand(Brand brand)
+        public IActionResult AddUser(User user)
         {
-            var result = _brandService.Add(brand);
+            var result = _userService.Add(user);
 
             if (result.Success)
             {
-                return Created("",result);
+                return Created("", result);
             }
 
             return BadRequest(result);
         }
 
         [HttpDelete]
-        public IActionResult DeleteBrand(Brand brand)
+        public IActionResult DeleteUser(User user)
         {
-            var result = _brandService.Delete(brand);
+            var result = _userService.Delete(user);
 
             if (result.Success)
             {
@@ -73,9 +73,9 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateBrand(Brand brand)
+        public IActionResult UpdateUser(User user)
         {
-            var result = _brandService.Update(brand);
+            var result = _userService.Update(user);
 
             if (result.Success)
             {
