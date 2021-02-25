@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 using RentalCar.Business.Abstract;
 using RentalCar.Entities.Concrete;
 using RentalCar.WebAPI.Models;
@@ -18,7 +19,7 @@ namespace RentalCar.WebAPI.Controllers
     {
         private ICarService _carService;
         private IWebHostEnvironment _webHostEnvironment;
-        
+
         public CarsController(ICarService carService, IWebHostEnvironment webHostEnvironment)
         {
             _carService = carService;
@@ -164,8 +165,10 @@ namespace RentalCar.WebAPI.Controllers
                     {
                         file.CopyTo(fileStream);
                         fileStream.Flush();
-                        _carService.AddImage(carId, busOfFile);
+                        var result = _carService.AddImage(carId, busOfFile);
+
                         return Ok();
+
                     }
                 }
                 else
@@ -178,6 +181,7 @@ namespace RentalCar.WebAPI.Controllers
             {
                 return BadRequest(ex);
             }
+
         }
 
     }
