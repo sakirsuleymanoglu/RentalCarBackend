@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using RentalCar.Business.Abstract;
+using RentalCar.Core.Business;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
@@ -10,7 +11,7 @@ namespace RentalCar.Business.Concrete
 {
     public class BrandManager : IBrandService
     {
-        private IBrandDal _brandDal;
+        private readonly IBrandDal _brandDal;
 
         public BrandManager(IBrandDal brandDal)
         {
@@ -50,11 +51,11 @@ namespace RentalCar.Business.Concrete
 
         public IResult Delete(Brand brand)
         {
-            var result = _brandDal.Get(b => b.Id == brand.Id);
+            var result = BusinessRules.Run(CheckExistOfBrand(brand.Id));
 
-            if (result == null)
+            if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             _brandDal.Delete(brand);
@@ -64,14 +65,26 @@ namespace RentalCar.Business.Concrete
 
         public IResult Update(Brand brand)
         {
-            var result = _brandDal.Get(b => b.Id == brand.Id);
+            var result = BusinessRules.Run(CheckExistOfBrand(brand.Id));
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            _brandDal.Update(brand);
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckExistOfBrand(int brandId)
+        {
+            var result = _brandDal.Get(b => b.Id == brandId);
 
             if (result == null)
             {
                 return new ErrorResult();
             }
-
-            _brandDal.Update(brand);
 
             return new SuccessResult();
         }
