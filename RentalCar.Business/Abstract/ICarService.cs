@@ -17,5 +17,6 @@ namespace RentalCar.Business.Abstract
         IResult Add(Car car);
         IResult Delete(Car car);
         IResult Update(Car car);
+        IResult AddImage(int carId, string path);
     }
 }

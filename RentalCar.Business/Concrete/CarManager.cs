@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Query;
 using RentalCar.Business.Abstract;
+using RentalCar.Core.Business;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
@@ -11,10 +13,12 @@ namespace RentalCar.Business.Concrete
     public class CarManager : ICarService
     {
         private ICarDal _carDal;
+        private ICarImageService _carImageService;
 
-        public CarManager(ICarDal carDal)
+        public CarManager(ICarDal carDal, ICarImageService carImageService)
         {
             _carDal = carDal;
+            _carImageService = carImageService;
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -120,6 +124,44 @@ namespace RentalCar.Business.Concrete
             }
 
             _carDal.Update(result);
+
+            return new SuccessResult();
+        }
+
+        public IResult AddImage(int carId, string path)
+        {
+            var result = BusinessRules.Run(CheckCarImageCount(carId));
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            _carImageService.Add(carId, path);
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckCarImageCount(int carId)
+        {
+            var result = _carImageService.GetAllByCarId(carId);
+
+            if (result.Data.Count == 5)
+            {
+                return new ErrorResult();
+            }
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckExistOfCar(int carId)
+        {
+            var result = _carDal.Get(c => c.Id == carId);
+
+            if (result == null)
+            {
+                return new ErrorResult();
+            }
 
             return new SuccessResult();
         }

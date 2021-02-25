@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using RentalCar.Business.Abstract;
 using RentalCar.Entities.Concrete;
+using RentalCar.WebAPI.Models;
 
 namespace RentalCar.WebAPI.Controllers
 {
@@ -15,10 +17,12 @@ namespace RentalCar.WebAPI.Controllers
     public class CarsController : ControllerBase
     {
         private ICarService _carService;
-
-        public CarsController(ICarService carService)
+        private IWebHostEnvironment _webHostEnvironment;
+        
+        public CarsController(ICarService carService, IWebHostEnvironment webHostEnvironment)
         {
             _carService = carService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -136,6 +140,44 @@ namespace RentalCar.WebAPI.Controllers
             }
 
             return NotFound(result);
+        }
+
+        [HttpPost("{carId}")]
+        public IActionResult AddImage(int carId, [FromForm] FileUpload objectFile)
+        {
+
+            try
+            {
+                if (objectFile.FormFile.Length > 0)
+                {
+                    string path = _webHostEnvironment.WebRootPath + $"\\images\\" + Guid.NewGuid().ToString();
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    var file = objectFile.FormFile;
+
+                    var busOfFile = path + file.FileName;
+
+                    using (FileStream fileStream = System.IO.File.Create(busOfFile))
+                    {
+                        file.CopyTo(fileStream);
+                        fileStream.Flush();
+                        _carService.AddImage(carId, busOfFile);
+                        return Ok();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
     }
