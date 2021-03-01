@@ -29,7 +29,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Rental>>(result);
         }
 
-        public IDataResult<List<Rental>> GetAllByCarId(int carId)
+        public IDataResult<List<Rental>> GetAllByCar(int carId)
         {
             var result = _rentalDal.GetAll(r => r.CarId == carId);
 
@@ -41,7 +41,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Rental>>(result);
         }
 
-        public IDataResult<List<Rental>> GetAllByCustomerId(int customerId)
+        public IDataResult<List<Rental>> GetAllByCustomer(int customerId)
         {
             var result = _rentalDal.GetAll(r => r.CustomerId == customerId);
 

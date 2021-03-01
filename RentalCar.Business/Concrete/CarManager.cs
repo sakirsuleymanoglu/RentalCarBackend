@@ -13,12 +13,10 @@ namespace RentalCar.Business.Concrete
     public class CarManager : ICarService
     {
         private ICarDal _carDal;
-        private ICarImageService _carImageService;
 
-        public CarManager(ICarDal carDal, ICarImageService carImageService)
+        public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
-            _carImageService = carImageService;
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -33,7 +31,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Car>>(result);
         }
 
-        public IDataResult<List<Car>> GetAllByBranId(int brandId)
+        public IDataResult<List<Car>> GetAllByBrand(int brandId)
         {
             var result = _carDal.GetAll(c => c.BrandId == brandId);
 
@@ -45,7 +43,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Car>>(result);
         }
 
-        public IDataResult<List<Car>> GetAllByColorId(int colorId)
+        public IDataResult<List<Car>> GetAllByColor(int colorId)
         {
             var result = _carDal.GetAll(c => c.ColorId == colorId);
 
@@ -124,32 +122,6 @@ namespace RentalCar.Business.Concrete
             }
 
             _carDal.Update(result);
-
-            return new SuccessResult();
-        }
-
-        public IResult AddImage(int carId, string path)
-        {
-            var result = BusinessRules.Run(CheckCarImageCount(carId));
-
-            if (result != null)
-            {
-                return result;
-            }
-
-            _carImageService.Add(carId, path);
-
-            return new SuccessResult();
-        }
-
-        private IResult CheckCarImageCount(int carId)
-        {
-            var result = _carImageService.GetAllByCarId(carId);
-
-            if (result.Data.Count == 5)
-            {
-                return new ErrorResult();
-            }
 
             return new SuccessResult();
         }

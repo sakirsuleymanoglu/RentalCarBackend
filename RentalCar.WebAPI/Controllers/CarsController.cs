@@ -42,7 +42,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{brandId}")]
         public IActionResult GetCarsByBrandId(int brandId)
         {
-            var result = _carService.GetAllByBranId(brandId);
+            var result = _carService.GetAllByBrand(brandId);
 
             if (result.Success)
             {
@@ -55,7 +55,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{colorId}")]
         public IActionResult GetCarsByColorId(int colorId)
         {
-            var result = _carService.GetAllByColorId(colorId);
+            var result = _carService.GetAllByColor(colorId);
 
             if (result.Success)
             {
@@ -142,47 +142,5 @@ namespace RentalCar.WebAPI.Controllers
 
             return NotFound(result);
         }
-
-        [HttpPost("{carId}")]
-        public IActionResult AddImage(int carId, [FromForm] FileUpload objectFile)
-        {
-
-            try
-            {
-                if (objectFile.FormFile.Length > 0)
-                {
-                    string path = _webHostEnvironment.WebRootPath + $"\\images\\" + Guid.NewGuid().ToString();
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-
-                    var file = objectFile.FormFile;
-
-                    var busOfFile = path + file.FileName;
-
-                    using (FileStream fileStream = System.IO.File.Create(busOfFile))
-                    {
-                        file.CopyTo(fileStream);
-                        fileStream.Flush();
-                        var result = _carService.AddImage(carId, busOfFile);
-
-                        return Ok();
-
-                    }
-                }
-                else
-                {
-                    return BadRequest();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-
-        }
-
     }
 }

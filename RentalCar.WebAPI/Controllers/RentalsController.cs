@@ -13,7 +13,7 @@ namespace RentalCar.WebAPI.Controllers
     [ApiController]
     public class RentalsController : ControllerBase
     {
-        private IRentalService _rentalService;
+        private readonly IRentalService _rentalService;
 
         public RentalsController(IRentalService rentalService)
         {
