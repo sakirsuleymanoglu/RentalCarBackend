@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using RentalCar.Business.Abstract;
 using RentalCar.Entities.Concrete;
-using RentalCar.WebAPI.Models;
+
 
 namespace RentalCar.WebAPI.Controllers
 {
