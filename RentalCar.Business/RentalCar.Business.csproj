@@ -5,13 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RentalCar.Core\RentalCar.Core.csproj" />
-    <ProjectReference Include="..\RentalCar.DataAccess\RentalCar.DataAccess.csproj" />
-    <ProjectReference Include="..\RentalCar.Entities\RentalCar.Entities.csproj" />
+    <Compile Remove="Constants\**" />
+    <EmbeddedResource Remove="Constants\**" />
+    <None Remove="Constants\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Constants\" />
+    <ProjectReference Include="..\RentalCar.Core\RentalCar.Core.csproj" />
+    <ProjectReference Include="..\RentalCar.DataAccess\RentalCar.DataAccess.csproj" />
+    <ProjectReference Include="..\RentalCar.Entities\RentalCar.Entities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
