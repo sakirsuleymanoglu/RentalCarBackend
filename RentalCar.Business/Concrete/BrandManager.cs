@@ -30,7 +30,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Brand>>(result);
         }
 
-        public IDataResult<Brand> Get(int id)
+        public IDataResult<Brand> GetById(int id)
         {
             var result = _brandDal.Get(b => b.Id == id);
 

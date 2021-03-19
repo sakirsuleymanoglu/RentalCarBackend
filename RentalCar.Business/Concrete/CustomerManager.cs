@@ -29,7 +29,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Customer>>(result);
         }
 
-        public IDataResult<Customer> Get(int id)
+        public IDataResult<Customer> GetById(int id)
         {
             var result = _customerDal.Get(c => c.Id == id);
 

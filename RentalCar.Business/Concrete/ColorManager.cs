@@ -29,7 +29,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Color>>(result);
         }
 
-        public IDataResult<Color> Get(int id)
+        public IDataResult<Color> GetById(int id)
         {
             var result = _colorDal.Get(c => c.Id == id);
 

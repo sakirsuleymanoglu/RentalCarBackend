@@ -31,7 +31,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Car>>(result);
         }
 
-        public IDataResult<List<Car>> GetAllByBrand(int brandId)
+        public IDataResult<List<Car>> GetAllByBrandId(int brandId)
         {
             var result = _carDal.GetAll(c => c.BrandId == brandId);
 
@@ -43,7 +43,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Car>>(result);
         }
 
-        public IDataResult<List<Car>> GetAllByColor(int colorId)
+        public IDataResult<List<Car>> GetAllByColorId(int colorId)
         {
             var result = _carDal.GetAll(c => c.ColorId == colorId);
 
@@ -79,7 +79,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Car>>(result);
         }
 
-        public IDataResult<Car> Get(int id)
+        public IDataResult<Car> GetById(int id)
         {
             var result = _carDal.Get(c => c.Id == id);
 

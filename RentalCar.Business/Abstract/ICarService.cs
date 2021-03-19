@@ -13,7 +13,7 @@ namespace RentalCar.Business.Abstract
         IDataResult<List<Car>> GetAllByColorId(int colorId);
         IDataResult<List<Car>> GetAllByModel(string model);
         IDataResult<List<Car>> GetAllByModelYear(string modelYear);
-        IDataResult<Car> Get(int id);
+        IDataResult<Car> GetById(int id);
         IResult Add(Car car);
         IResult Delete(Car car);
         IResult Update(Car car);
