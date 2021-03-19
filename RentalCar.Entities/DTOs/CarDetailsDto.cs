@@ -10,6 +10,6 @@ namespace RentalCar.Entities.DTOs
         public string BrandName { get; set; }
         public string CarModel { get; set; }
         public string ColorName { get; set; }
-        public string DailyPrice { get; set; }
+        public decimal DailyPrice { get; set; }
     }
 }

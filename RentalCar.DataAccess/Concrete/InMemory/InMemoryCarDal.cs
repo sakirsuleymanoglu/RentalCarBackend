@@ -1,5 +1,6 @@
 ﻿using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
+using RentalCar.Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,11 @@ namespace RentalCar.DataAccess.Concrete.InMemory
         public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
         {
             return null;
+        }
+
+        public List<CarDetailsDto> GetAllDetailsOfCars()
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Car entity)
