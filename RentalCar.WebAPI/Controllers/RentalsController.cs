@@ -36,7 +36,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{carId}")]
         public IActionResult GetRentalsByCarId(int carId)
         {
-            var result = _rentalService.GetAllByCar(carId);
+            var result = _rentalService.GetAllByCarId(carId);
 
             if (result.Success)
             {
@@ -49,7 +49,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{customerId}")]
         public IActionResult GetRentalsByCustomerId(int customerId)
         {
-            var result = _rentalService.GetAllByCustomer(customerId);
+            var result = _rentalService.GetAllByCustomerId(customerId);
 
             if (result.Success)
             {
@@ -62,7 +62,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetRentalById(int id)
         {
-            var result = _rentalService.Get(id);
+            var result = _rentalService.GetById(id);
 
             if (result.Success)
             {

@@ -36,7 +36,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {
-            var result = _userService.Get(id);
+            var result = _userService.GetById(id);
 
             if (result.Success)
             {

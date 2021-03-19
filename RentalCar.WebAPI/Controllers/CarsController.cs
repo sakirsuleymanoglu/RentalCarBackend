@@ -42,7 +42,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{brandId}")]
         public IActionResult GetCarsByBrandId(int brandId)
         {
-            var result = _carService.GetAllByBrand(brandId);
+            var result = _carService.GetAllByBrandId(brandId);
 
             if (result.Success)
             {
@@ -55,7 +55,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{colorId}")]
         public IActionResult GetCarsByColorId(int colorId)
         {
-            var result = _carService.GetAllByColor(colorId);
+            var result = _carService.GetAllByColorId(colorId);
 
             if (result.Success)
             {
@@ -94,7 +94,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCarById(int id)
         {
-            var result = _carService.Get(id);
+            var result = _carService.GetById(id);
 
             if (result.Success)
             {

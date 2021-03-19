@@ -36,7 +36,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetColorById(int id)
         {
-            var result = _colorService.Get(id);
+            var result = _colorService.GetById(id);
 
             if (result.Success)
             {

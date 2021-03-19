@@ -36,7 +36,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetBrandById(int id)
         {
-            var result = _brandService.Get(id);
+            var result = _brandService.GetById(id);
 
             if (result.Success)
             {
