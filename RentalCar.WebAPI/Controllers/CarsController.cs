@@ -148,7 +148,6 @@ namespace RentalCar.WebAPI.Controllers
         [HttpPost("addimage")]
         public IActionResult AddImage([FromForm] FileUpload upload, Car car)
         {
-
             var imagePath = FileUploadHelper.Upload(upload, _webHostEnvironment);
 
             var result = _carImageService.Add(car, imagePath);

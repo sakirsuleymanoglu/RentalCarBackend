@@ -23,7 +23,7 @@ namespace RentalCar.Core.Utilities.Uploads
                         Directory.CreateDirectory(path);
                     }
 
-                    imagePath = path + new Guid() + upload.files.FileName;
+                    imagePath = path + Guid.NewGuid() + upload.files.FileName;
 
                     using (FileStream fileStream = System.IO.File.Create(imagePath))
                     {
