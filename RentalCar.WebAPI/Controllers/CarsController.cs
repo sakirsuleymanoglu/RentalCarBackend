@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using RentalCar.Business.Abstract;
 using RentalCar.Entities.Concrete;
-using RentalCar.Core.Utilities.Uploads;
+
 
 namespace RentalCar.WebAPI.Controllers
 {
@@ -133,7 +133,7 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult UpdateCar(Car car)
+        public IActionResult Update(Car car)
         {
             var result = _carService.Update(car);
 
@@ -146,11 +146,9 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPost("addimage")]
-        public IActionResult AddImage([FromForm] FileUpload upload, Car car)
+        public IActionResult AddImage(Car car)
         {
-            var imagePath = FileUploadHelper.Upload(upload, _webHostEnvironment);
-
-            var result = _carImageService.Add(car, imagePath);
+            var result = _carImageService.Add(car, null);
 
             if (result.Success)
             {
