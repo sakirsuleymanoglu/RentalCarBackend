@@ -8,6 +8,6 @@ namespace RentalCar.Business.Abstract
 {
     public interface ICarImageService
     {
-        IResult AddImageForCar(Car car, string imagePath);
+        IResult Add(Car car, string imagePath);
     }
 }

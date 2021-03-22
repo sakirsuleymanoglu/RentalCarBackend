@@ -9,7 +9,7 @@ using RentalCar.Entities.Concrete;
 
 namespace RentalCar.WebAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class BrandsController : ControllerBase
     {
@@ -20,8 +20,8 @@ namespace RentalCar.WebAPI.Controllers
             _brandService = brandService;
         }
 
-        [HttpGet]
-        public IActionResult GetBrands()
+        [HttpGet("getall")]
+        public IActionResult GetAll()
         {
             var result = _brandService.GetAll();
 
@@ -30,11 +30,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetBrandById(int id)
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
             var result = _brandService.GetById(id);
 
@@ -43,24 +43,24 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpPost]
-        public IActionResult AddBrand(Brand brand)
+        [HttpPost("add")]
+        public IActionResult Add(Brand brand)
         {
             var result = _brandService.Add(brand);
 
             if (result.Success)
             {
-                return Created("", result);
+                return Ok(result);
             }
 
             return BadRequest(result);
         }
 
-        [HttpDelete]
-        public IActionResult DeleteBrand(Brand brand)
+        [HttpDelete("delete")]
+        public IActionResult Delete(Brand brand)
         {
             var result = _brandService.Delete(brand);
 
@@ -69,11 +69,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpPut]
-        public IActionResult UpdateBrand(Brand brand)
+        [HttpPut("update")]
+        public IActionResult Update(Brand brand)
         {
             var result = _brandService.Update(brand);
 
@@ -82,7 +82,7 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
     }
 }

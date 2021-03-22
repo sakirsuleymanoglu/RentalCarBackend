@@ -146,7 +146,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpPost("addimage")]
         public IActionResult AddImage(Car car, string imagePath)
         {
-            var result = _carImageService.AddImageForCar(car, imagePath);
+            var result = _carImageService.Add(car, imagePath);
 
             if (result.Success)
             {

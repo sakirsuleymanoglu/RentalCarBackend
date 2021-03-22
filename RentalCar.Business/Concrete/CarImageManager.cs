@@ -18,7 +18,7 @@ namespace RentalCar.Business.Concrete
             _carImageDal = carImageDal;
         }
 
-        public IResult AddImageForCar(Car car, string imagePath)
+        public IResult Add(Car car, string imagePath)
         {
             var result = BusinessRules.Run(CheckImageCountForCar(car.Id));
 

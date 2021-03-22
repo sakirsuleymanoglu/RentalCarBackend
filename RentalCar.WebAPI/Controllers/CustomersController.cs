@@ -9,7 +9,7 @@ using RentalCar.Entities.Concrete;
 
 namespace RentalCar.WebAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
@@ -20,8 +20,8 @@ namespace RentalCar.WebAPI.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet]
-        public IActionResult GetCustomers()
+        [HttpGet("getall")]
+        public IActionResult GetAll()
         {
             var result = _customerService.GetAll();
 
@@ -30,11 +30,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetCustomerById(int id)
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
             var result = _customerService.GetById(id);
 
@@ -43,24 +43,24 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpPost]
-        public IActionResult AddCustomer(Customer customer)
+        [HttpPost("add")]
+        public IActionResult Add(Customer customer)
         {
             var result = _customerService.Add(customer);
 
             if (result.Success)
             {
-                return Created("", result);
+                return Ok(result);
             }
 
             return BadRequest(result);
         }
 
-        [HttpDelete]
-        public IActionResult DeleteCustomer(Customer customer)
+        [HttpDelete("delete")]
+        public IActionResult Delete(Customer customer)
         {
             var result = _customerService.Delete(customer);
 
@@ -69,11 +69,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpPut]
-        public IActionResult UpdateCustomer(Customer customer)
+        [HttpPut("update")]
+        public IActionResult Update(Customer customer)
         {
             var result = _customerService.Update(customer);
 
@@ -82,7 +82,7 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
     }
 }

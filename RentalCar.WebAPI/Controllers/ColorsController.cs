@@ -9,7 +9,7 @@ using RentalCar.Entities.Concrete;
 
 namespace RentalCar.WebAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ColorsController : ControllerBase
     {
@@ -20,8 +20,8 @@ namespace RentalCar.WebAPI.Controllers
             _colorService = colorService;
         }
 
-        [HttpGet]
-        public IActionResult GetColors()
+        [HttpGet("getall")]
+        public IActionResult GetAll()
         {
             var result = _colorService.GetAll();
 
@@ -30,11 +30,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetColorById(int id)
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
             var result = _colorService.GetById(id);
 
@@ -43,24 +43,24 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpPost]
-        public IActionResult AddColor(Color color)
+        [HttpPost("add")]
+        public IActionResult Add(Color color)
         {
             var result = _colorService.Add(color);
 
             if (result.Success)
             {
-                return Created("", result);
+                return Ok(result);
             }
 
             return BadRequest(result);
         }
 
-        [HttpDelete]
-        public IActionResult DeleteColor(Color color)
+        [HttpDelete("delete")]
+        public IActionResult Delete(Color color)
         {
             var result = _colorService.Delete(color);
 
@@ -69,11 +69,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpPut]
-        public IActionResult UpdateColor(Color color)
+        [HttpPut("update")]
+        public IActionResult Update(Color color)
         {
             var result = _colorService.Update(color);
 
@@ -82,7 +82,7 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
     }
 }

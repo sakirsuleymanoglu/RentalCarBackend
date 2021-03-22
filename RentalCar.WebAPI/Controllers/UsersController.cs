@@ -9,7 +9,7 @@ using RentalCar.Entities.Concrete;
 
 namespace RentalCar.WebAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -20,8 +20,8 @@ namespace RentalCar.WebAPI.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public IActionResult GetUsers()
+        [HttpGet("getall")]
+        public IActionResult GetAll()
         {
             var result = _userService.GetAll();
 
@@ -30,11 +30,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetUserById(int id)
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
             var result = _userService.GetById(id);
 
@@ -43,24 +43,24 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
         [HttpPost]
-        public IActionResult AddUser(User user)
+        public IActionResult Add(User user)
         {
             var result = _userService.Add(user);
 
             if (result.Success)
             {
-                return Created("", result);
+                return Ok(result);
             }
 
             return BadRequest(result);
         }
 
         [HttpDelete]
-        public IActionResult DeleteUser(User user)
+        public IActionResult Delete(User user)
         {
             var result = _userService.Delete(user);
 
@@ -69,11 +69,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
         [HttpPut]
-        public IActionResult UpdateUser(User user)
+        public IActionResult Update(User user)
         {
             var result = _userService.Update(user);
 
@@ -82,7 +82,7 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
     }
 }
