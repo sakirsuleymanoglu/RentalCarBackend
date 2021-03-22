@@ -13,21 +13,21 @@ using RentalCar.Entities.Concrete;
 
 namespace RentalCar.WebAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CarsController : ControllerBase
     {
         private ICarService _carService;
-        private IWebHostEnvironment _webHostEnvironment;
+        private ICarImageService _carImageService;
 
-        public CarsController(ICarService carService, IWebHostEnvironment webHostEnvironment)
+        public CarsController(ICarService carService, ICarImageService carImageService)
         {
             _carService = carService;
-            _webHostEnvironment = webHostEnvironment;
+            _carImageService = carImageService;
         }
 
-        [HttpGet]
-        public IActionResult GetCars()
+        [HttpGet("getall")]
+        public IActionResult GetAll()
         {
             var result = _carService.GetAll();
 
@@ -36,11 +36,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpGet("{brandId}")]
-        public IActionResult GetCarsByBrandId(int brandId)
+        [HttpGet("getallbybrandid")]
+        public IActionResult GetAllByBrandId(int brandId)
         {
             var result = _carService.GetAllByBrandId(brandId);
 
@@ -49,11 +49,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpGet("{colorId}")]
-        public IActionResult GetCarsByColorId(int colorId)
+        [HttpGet("getallbycolorid")]
+        public IActionResult GetAllByColorId(int colorId)
         {
             var result = _carService.GetAllByColorId(colorId);
 
@@ -62,11 +62,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpGet("modelYear")]
-        public IActionResult GetCarsByModelYear(string modelYear)
+        [HttpGet("getallbymodelyear")]
+        public IActionResult GetAllByModelYear(string modelYear)
         {
             var result = _carService.GetAllByModelYear(modelYear);
 
@@ -75,11 +75,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpGet("{model}")]
-        public IActionResult GetCarsByModel(string model)
+        [HttpGet("getallbymodel")]
+        public IActionResult GetAllByModel(string model)
         {
             var result = _carService.GetAllByModel(model);
 
@@ -88,11 +88,11 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetCarById(int id)
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
             var result = _carService.GetById(id);
 
@@ -104,21 +104,21 @@ namespace RentalCar.WebAPI.Controllers
             return NotFound(result);
         }
 
-        [HttpPost]
-        public IActionResult AddCar(Car car)
+        [HttpPost("add")]
+        public IActionResult Add(Car car)
         {
             var result = _carService.Add(car);
 
             if (result.Success)
             {
-                return Created("", result);
+                return Ok(result);
             }
 
-            return BadRequest();
+            return BadRequest(result);
         }
 
-        [HttpDelete]
-        public IActionResult DeleteCar(Car car)
+        [HttpDelete("delete")]
+        public IActionResult Delete(Car car)
         {
             var result = _carService.Delete(car);
 
@@ -127,10 +127,10 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
         }
 
-        [HttpPut]
+        [HttpPut("update")]
         public IActionResult UpdateCar(Car car)
         {
             var result = _carService.Update(car);
@@ -140,7 +140,20 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return BadRequest(result);
+        }
+
+        [HttpPost("addimage")]
+        public IActionResult AddImage(Car car, string imagePath)
+        {
+            var result = _carImageService.AddImageForCar(car, imagePath);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
         }
     }
 }
