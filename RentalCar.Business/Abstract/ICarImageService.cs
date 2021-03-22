@@ -9,5 +9,6 @@ namespace RentalCar.Business.Abstract
     public interface ICarImageService
     {
         IResult Add(Car car, string imagePath);
+        IDataResult<List<CarImage>> GetAllByCarId(int carId);
     }
 }

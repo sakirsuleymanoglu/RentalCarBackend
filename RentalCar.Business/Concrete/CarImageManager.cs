@@ -47,5 +47,17 @@ namespace RentalCar.Business.Concrete
             }
             return new SuccessResult();
         }
+
+        public IDataResult<List<CarImage>> GetAllByCarId(int carId)
+        {
+            var result = _carImageDal.GetAll(cImage => cImage.CarId == carId);
+
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<CarImage>>();
+            }
+
+            return new SuccessDataResult<List<CarImage>>(result);
+        }
     }
 }
