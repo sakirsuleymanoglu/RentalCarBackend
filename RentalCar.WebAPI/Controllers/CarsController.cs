@@ -19,13 +19,11 @@ namespace RentalCar.WebAPI.Controllers
     {
         private ICarService _carService;
         private ICarImageService _carImageService;
-        private IWebHostEnvironment _webHostEnvironment;
 
-        public CarsController(ICarService carService, ICarImageService carImageService, IWebHostEnvironment webHostEnvironment)
+        public CarsController(ICarService carService, ICarImageService carImageService)
         {
             _carService = carService;
             _carImageService = carImageService;
-            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet("getall")]
