@@ -165,6 +165,19 @@ namespace RentalCar.WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpPost("deleteimage")]
+        public IActionResult DeleteImage(int carId, string imagePath)
+        {
+           var result = _carImageService.Delete(carId, imagePath);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
         [HttpGet("getallimages")]
         public IActionResult GetAllImages(int carId)
         {
