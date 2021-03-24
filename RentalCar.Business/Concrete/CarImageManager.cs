@@ -50,7 +50,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        public IResult Delete(int carId, string imagePath)
+        public IResult Delete(int carId, int imagePath)
         {
             var result = BusinessRules.Run(CheckIfExistCar(carId),
                 CheckIfExistImageForCar(carId, imagePath));
@@ -60,7 +60,7 @@ namespace RentalCar.Business.Concrete
                 return new ErrorResult();
             }
 
-            var carImage = GetByCarIdAndImagePath(carId, imagePath).Data;
+            var carImage = GetImageByCarId(carId, imagePath).Data;
 
             _carImageDal.Delete(carImage);
 
@@ -79,7 +79,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<CarImage>>(result);
         }
 
-        public IResult CheckIfExistCar(int carId)
+        private IResult CheckIfExistCar(int carId)
         {
             var result = _carService.GetById(carId);
 
@@ -91,9 +91,9 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        public IResult CheckIfExistImageForCar(int carId, string imagePath)
+        private IResult CheckIfExistImageForCar(int carId, int imagePathId)
         {
-            var result = _carImageDal.Get(c => c.CarId == carId && c.ImagePath == imagePath);
+            var result = _carImageDal.Get(c => c.CarId == carId && c.Id == imagePathId);
 
             if (result == null)
             {
@@ -103,7 +103,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<CarImage> GetByCarIdAndImagePath(int carId, string imagePath)
+        public IDataResult<CarImage> GetImageByCarId(int carId, int imagePath)
         {
            var result =  BusinessRules.Run(CheckIfExistCar(carId), CheckIfExistImageForCar(carId, imagePath));
 
@@ -112,7 +112,14 @@ namespace RentalCar.Business.Concrete
                 return new ErrorDataResult<CarImage>();
             }
 
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarId == carId && c.ImagePath == imagePath));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarId == carId && c.Id == imagePath));
         }
+
+        public IResult Update(int carId, int imagePathId, string newImagePath)
+        {
+            return null;
+        }
+
+       
     }
 }

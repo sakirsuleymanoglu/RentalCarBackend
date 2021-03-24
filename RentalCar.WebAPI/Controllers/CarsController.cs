@@ -166,9 +166,9 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPost("deleteimage")]
-        public IActionResult DeleteImage(int carId, string imagePath)
+        public IActionResult DeleteImage(int carId, int imagePathId)
         {
-           var result = _carImageService.Delete(carId, imagePath);
+           var result = _carImageService.Delete(carId, imagePathId);
 
             if (result.Success)
             {
