@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using RentalCar.Business.Abstract;
 using RentalCar.Entities.Concrete;
-
+using RentalCar.Core.Utilities.Results;
+using RentalCar.Core.Utilities.File;
 
 namespace RentalCar.WebAPI.Controllers
 {
@@ -19,11 +20,13 @@ namespace RentalCar.WebAPI.Controllers
     {
         private ICarService _carService;
         private ICarImageService _carImageService;
+        IWebHostEnvironment _webHostEnvironment;
 
-        public CarsController(ICarService carService, ICarImageService carImageService)
+        public CarsController(ICarService carService, ICarImageService carImageService, IWebHostEnvironment webHostEnvironment)
         {
             _carService = carService;
             _carImageService = carImageService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet("getall")]
@@ -144,22 +147,28 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPost("addimage")]
-        public IActionResult AddImage(Car car)
+        public IActionResult AddImage(IFormFile formFile, int carId)
         {
-            var result = _carImageService.Add(car, null);
+            string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
+
+            string imagePath = FileHelper.CreateFile(path, formFile);
+
+            var result = _carImageService.Add(carId, imagePath);
 
             if (result.Success)
             {
                 return Ok(result);
             }
 
+            FileHelper.DeleteFile(imagePath);
+
             return BadRequest(result);
         }
 
         [HttpGet("getallimages")]
-        public IActionResult GetAllImages(Car car)
+        public IActionResult GetAllImages(int carId)
         {
-            var result = _carImageService.GetAllByCarId(car.Id);
+            var result = _carImageService.GetAllByCarId(carId);
 
             if (result.Success)
             {

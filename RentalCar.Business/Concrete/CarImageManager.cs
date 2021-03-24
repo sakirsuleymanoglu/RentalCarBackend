@@ -18,9 +18,9 @@ namespace RentalCar.Business.Concrete
             _carImageDal = carImageDal;
         }
 
-        public IResult Add(Car car, string imagePath)
+        public IResult Add(int carId, string imagePath)
         {
-            var result = BusinessRules.Run(CheckImageCountForCar(car.Id));
+            var result = BusinessRules.Run(CheckImageCountForCar(carId));
 
             if (result != null)
             {
@@ -29,7 +29,7 @@ namespace RentalCar.Business.Concrete
 
             _carImageDal.Add(new CarImage
             {
-                CarId = car.Id,
+                CarId = carId,
                 ImagePath = imagePath,
                 Date = DateTime.Now
             });
@@ -41,7 +41,7 @@ namespace RentalCar.Business.Concrete
         {
             var result = _carImageDal.GetAll(cImage => cImage.CarId == carId);
 
-            if (result.Count > 5)
+            if (result.Count >= 5)
             {
                 return new ErrorResult();
             }

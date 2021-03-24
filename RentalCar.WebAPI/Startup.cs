@@ -14,6 +14,7 @@ using RentalCar.Business.Abstract;
 using RentalCar.Business.Concrete;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.DataAccess.Concrete.EntityFramework;
+using Microsoft.OpenApi.Models;
 
 namespace RentalCar.WebAPI
 {
@@ -31,6 +32,22 @@ namespace RentalCar.WebAPI
         {
             services.AddControllers();
             services.AddCors();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("RentalCar", new OpenApiInfo // Bu kýsýmda dökümanda kullanýlacak bilgileri tanýmlýyoruz.Versiyon,Baþlýk,Açýklama,Servis gibi bilgileri yazabiliriz.
+                { //Burada dikkat edilmesi gereken konu yukarýda parametre olarak geçirdiðimizi "ProductApi". Burada verdiðiniz deðer ile aþaðýda configure içerisinde swaggerýn json dosyasýnýn pathini verirken kullandýðýmýz deðer ayný olmalý
+                    Version = "v1",
+                    Title = "Product API",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Metin Yorgun",
+                        Email = "metinyorgun@outlook.com",
+                        Url = new Uri("https://www.google.com"),
+                    },
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +69,12 @@ namespace RentalCar.WebAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger(); // Projemize swagger kullanacaðýmýzý söyledik
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/RentalCar/swagger.json", "RentalCar"); 
             });
         }
     }
