@@ -5,6 +5,7 @@ using RentalCar.Business.Abstract;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
+using RentalCar.Entities.DTOs;
 
 namespace RentalCar.Business.Concrete
 {
@@ -98,6 +99,11 @@ namespace RentalCar.Business.Concrete
             _rentalDal.Update(rental);
 
             return new SuccessResult();
+        }
+
+        public IDataResult<List<RentalDetailsDto>> GetAllDetails()
+        {
+            throw new NotImplementedException();
         }
     }
 }

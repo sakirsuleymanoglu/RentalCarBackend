@@ -7,6 +7,7 @@ using RentalCar.Core.Business;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
+using RentalCar.Entities.DTOs;
 
 namespace RentalCar.Business.Concrete
 {
@@ -136,6 +137,18 @@ namespace RentalCar.Business.Concrete
             }
 
             return new SuccessResult();
+        }
+
+        public IDataResult<List<CarDetailsDto>> GetAllDetails()
+        {
+            var result = _carDal.GetAllDetailsOfCars();
+
+            if (result == null)
+            {
+                return new ErrorDataResult<List<CarDetailsDto>>(result);
+            }
+
+            return new SuccessDataResult<List<CarDetailsDto>>(result);
         }
     }
 }

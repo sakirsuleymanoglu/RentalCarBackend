@@ -5,12 +5,11 @@ using System.Text;
 
 namespace RentalCar.Entities.DTOs
 {
-    public class CarDetailsDto : IDto
+    public class RentalDetailsDto : IDto
     {
         public string BrandName { get; set; }
         public string Model { get; set; }
-        public string ModelYear { get; set; }
-        public string ColorName { get; set; }
-        public decimal DailyPrice { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

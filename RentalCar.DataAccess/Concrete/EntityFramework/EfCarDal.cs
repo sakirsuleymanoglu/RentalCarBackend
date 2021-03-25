@@ -24,9 +24,10 @@ namespace RentalCar.DataAccess.Concrete.EntityFramework
                              select new CarDetailsDto
                              {
                                  BrandName = b.Name,
-                                 CarModel = c.Model,
                                  ColorName = co.Name,
-                                 DailyPrice = c.DailyPrice
+                                 Model = c.Model,
+                                 ModelYear = c.ModelYear,
+                                 DailyPrice = c.DailyPrice,
                              };
 
                 return result.ToList();
