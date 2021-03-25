@@ -12,8 +12,8 @@ namespace RentalCar.Business.Concrete
 {
     public class CarImageManager : ICarImageService
     {
-        readonly ICarImageDal _carImageDal;
-        readonly ICarService _carService;
+        private readonly ICarImageDal _carImageDal;
+        private readonly ICarService _carService;
 
         public CarImageManager(ICarImageDal carImageDal, ICarService carService)
         {
