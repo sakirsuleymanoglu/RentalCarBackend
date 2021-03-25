@@ -23,7 +23,7 @@ namespace RentalCar.Business.Concrete
 
         public IResult Add(int carId, string imagePath)
         {
-            var result = BusinessRules.Run(CheckImageCountForCar(carId));
+            var result = BusinessRules.Run(CheckIfImageCountForCarThanFive(carId));
 
             if (result != null)
             {
@@ -40,7 +40,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        public IResult CheckImageCountForCar(int carId)
+        private IResult CheckIfImageCountForCarThanFive(int carId)
         {
             var result = _carImageDal.GetAll(cImage => cImage.CarId == carId);
 
@@ -70,23 +70,23 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<List<CarImage>> GetAllByCarId(int carId, List<CarImage> defaultImagePath)
+        private IResult CheckIfImageCountForCar(int carId)
         {
-            var result = _carImageDal.GetAll(cImage => cImage.CarId == carId);
+            var result = _carImageDal.GetAll(c => c.CarId == carId).Count;
 
-            if (result.Count == 0)
+            if (result == 0)
             {
-                return new ErrorDataResult<List<CarImage>>(defaultImagePath);
+                return new ErrorResult();
             }
 
-            return new SuccessDataResult<List<CarImage>>(result);
+            return new SuccessResult();
         }
 
         private IResult CheckIfExistCar(int carId)
         {
             var result = _carService.GetById(carId);
 
-            if (result == null)
+            if (!result.Success)
             {
                 return new ErrorResult();
             }
@@ -143,6 +143,16 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
+        public IDataResult<List<CarImage>> GetAllByCarId(int carId)
+        {
+            var result = BusinessRules.Run(CheckIfExistCar(carId), CheckIfImageCountForCar(carId));
 
+            if (result != null)
+            {
+                return new ErrorDataResult<List<CarImage>>();
+            }
+
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
+        }
     }
 }
