@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Autofac;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 using RentalCar.Business.Abstract;
 using RentalCar.Business.Concrete;
+using RentalCar.Core.Utilities.Interceptors;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.DataAccess.Concrete.EntityFramework;
 using RentalCar.Entities.Concrete;
@@ -28,6 +31,15 @@ namespace RentalCar.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
             builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions()
+                {
+                    Selector = new AspectInterceptorSelector()
+                }).SingleInstance();
         }
     }
 }
+

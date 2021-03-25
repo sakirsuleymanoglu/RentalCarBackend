@@ -4,6 +4,7 @@ using System.Text;
 using FluentValidation;
 using RentalCar.Business.Abstract;
 using RentalCar.Business.ValidationRules.FluentValidation;
+using RentalCar.Core.Aspects.Autofac.Validation;
 using RentalCar.Core.Business;
 using RentalCar.Core.CrossCuttingCorcerns.Validation.FluentValidation;
 using RentalCar.Core.Utilities.Results;
@@ -45,10 +46,9 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<Brand>(result);
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
-        {
-            ValidationTool.Validate(new BrandValidator(), brand);
-
+        {        
             var result = BusinessRules.Run(CheckExistOfBrandName(brand.Name));
 
             if (result != null)
