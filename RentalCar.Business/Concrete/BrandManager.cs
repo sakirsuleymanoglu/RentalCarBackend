@@ -75,6 +75,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
             var result = BusinessRules.Run(CheckExistOfBrand(brand.Id));
