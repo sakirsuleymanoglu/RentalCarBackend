@@ -45,9 +45,9 @@ namespace RentalCar.Core.Utilities.File
             }
         }
 
-        public static string GetDefaultImagePath(string path)
+        public static string GetDefaultImagePath(string path, string fileType)
         {
-            return path + "default.jpg";
+            return path + "default." + fileType;
         }
     }
 }

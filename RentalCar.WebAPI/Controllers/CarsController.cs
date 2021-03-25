@@ -213,7 +213,7 @@ namespace RentalCar.WebAPI.Controllers
         {
             string path = GetPath();
 
-            string defaultImagePath = path + FileHelper.GetDefaultImagePath(path);
+            string defaultImagePath = path + FileHelper.GetDefaultImagePath(path, "jpg");
 
             var result = _carImageService.GetAllByCarId(carId, new List<CarImage>
             {
