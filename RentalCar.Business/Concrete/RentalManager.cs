@@ -103,7 +103,14 @@ namespace RentalCar.Business.Concrete
 
         public IDataResult<List<RentalDetailsDto>> GetAllDetails()
         {
-            throw new NotImplementedException();
+            var result = _rentalDal.GetAllDetailsOfRentals();
+
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<RentalDetailsDto>>();
+            }
+
+            return new SuccessDataResult<List<RentalDetailsDto>>(result);
         }
     }
 }

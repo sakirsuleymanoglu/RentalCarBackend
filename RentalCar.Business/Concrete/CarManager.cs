@@ -143,7 +143,7 @@ namespace RentalCar.Business.Concrete
         {
             var result = _carDal.GetAllDetailsOfCars();
 
-            if (result == null)
+            if (result.Count == 0)
             {
                 return new ErrorDataResult<List<CarDetailsDto>>(result);
             }

@@ -31,6 +31,7 @@ namespace RentalCar.DataAccess.Concrete.EntityFramework
                                  BrandName = b.Name,
                                  FirstName = u.FirstName,
                                  LastName = u.LastName,
+                                 Color = co.Name,
                                  Model = c.Model
                              };                           
 
