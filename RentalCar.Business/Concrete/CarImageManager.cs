@@ -143,13 +143,20 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<List<CarImage>> GetAllByCarId(int carId)
+        public IDataResult<List<CarImage>> GetAllByCarId(int carId, List<CarImage> defaultImages)
         {
             var result = BusinessRules.Run(CheckIfExistCar(carId), CheckIfImageCountForCar(carId));
-
-            if (result != null)
+          
+            if (!CheckIfExistCar(carId).Success)
             {
                 return new ErrorDataResult<List<CarImage>>();
+            }
+            else
+            {
+                if (!CheckIfImageCountForCar(carId).Success)
+                {
+                    return new ErrorDataResult<List<CarImage>>(defaultImages);
+                }
             }
 
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
