@@ -34,23 +34,21 @@ namespace RentalCar.WebAPI
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("RentalCar", new OpenApiInfo // Bu kýsýmda dökümanda kullanýlacak bilgileri tanýmlýyoruz.Versiyon,Baþlýk,Açýklama,Servis gibi bilgileri yazabiliriz.
-                { //Burada dikkat edilmesi gereken konu yukarýda parametre olarak geçirdiðimizi "ProductApi". Burada verdiðiniz deðer ile aþaðýda configure içerisinde swaggerýn json dosyasýnýn pathini verirken kullandýðýmýz deðer ayný olmalý
+                c.SwaggerDoc("RentalCar", new OpenApiInfo { 
                     Version = "v1",
-                    Title = "Product API",
-                    Description = "A simple example ASP.NET Core Web API",
-                    TermsOfService = new Uri("https://example.com/terms"),
+                    Title = "RentalCar API",
+                    Description = "",
+                    TermsOfService = null,
                     Contact = new OpenApiContact
                     {
-                        Name = "Metin Yorgun",
-                        Email = "metinyorgun@outlook.com",
-                        Url = new Uri("https://www.google.com"),
+                        Name = "Þakir Süleymanoðlu",
+                        Email = "sakirsuleymanoglu34@gmail.com",
+                        Url = null
                     },
                 });
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -58,7 +56,7 @@ namespace RentalCar.WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder=>builder.WithOrigins("http://localhost:4200/").AllowAnyHeader());
+            app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
@@ -66,12 +64,13 @@ namespace RentalCar.WebAPI
 
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
-            app.UseSwagger(); // Projemize swagger kullanacaðýmýzý söyledik
+            app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/RentalCar/swagger.json", "RentalCar"); 
