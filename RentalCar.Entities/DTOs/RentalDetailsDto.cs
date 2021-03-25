@@ -9,7 +9,7 @@ namespace RentalCar.Entities.DTOs
     {
         public string BrandName { get; set; }
         public string Model { get; set; }
-        public string Color { get; set; }
+        public string ColorName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }
