@@ -209,20 +209,7 @@ namespace RentalCar.WebAPI.Controllers
                 return Ok(result);
             }
 
-            var defaultImageResult = _carImageService.GetAllByCarId(carId, new List<CarImage>{
-            new CarImage
-            {
-                ImagePath = defaultImagePath
-            }
-            });
-
-            if (defaultImageResult.Success)
-            {
-                return BadRequest(defaultImagePath);
-            }
-
-            return Ok(defaultImagePath);
-
+            return BadRequest(result);
         }
 
         [NonAction]
