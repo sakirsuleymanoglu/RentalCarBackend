@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RentalCar.Core.CrossCuttingCorcerns.Validation.FluentValidation
 {
-    public class ValidationTool
+    public static class ValidationTool
     {
         public static void Validate(IValidator validator, object entity)
         {
