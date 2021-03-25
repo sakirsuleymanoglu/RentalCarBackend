@@ -44,6 +44,13 @@ namespace RentalCar.Business.Concrete
 
         public IResult Add(Brand brand)
         {
+            var result = BusinessRules.Run(CheckExistOfBrandName(brand.Name));
+
+            if (result != null)
+            {
+                return new ErrorResult();
+            }
+
             _brandDal.Add(brand);
 
             return new SuccessResult();
@@ -82,6 +89,18 @@ namespace RentalCar.Business.Concrete
             var result = _brandDal.Get(b => b.Id == brandId);
 
             if (result == null)
+            {
+                return new ErrorResult();
+            }
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckExistOfBrandName(string brandName)
+        {
+            var result = _brandDal.Get(b => b.Name == brandName);
+
+            if (result != null)
             {
                 return new ErrorResult();
             }
