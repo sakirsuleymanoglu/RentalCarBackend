@@ -27,14 +27,15 @@ namespace RentalCar.WebAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("RentalCar", new OpenApiInfo { 
+                c.SwaggerDoc("RentalCar", new OpenApiInfo
+                {
                     Version = "v1",
                     Title = "RentalCar API",
                     Description = "",
@@ -56,7 +57,7 @@ namespace RentalCar.WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
@@ -73,7 +74,7 @@ namespace RentalCar.WebAPI
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/RentalCar/swagger.json", "RentalCar"); 
+                c.SwaggerEndpoint("/swagger/RentalCar/swagger.json", "RentalCar");
             });
         }
     }
