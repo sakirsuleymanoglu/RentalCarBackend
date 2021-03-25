@@ -70,13 +70,13 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<List<CarImage>> GetAllByCarId(int carId)
+        public IDataResult<List<CarImage>> GetAllByCarId(int carId, List<CarImage> defaultImagePath)
         {
             var result = _carImageDal.GetAll(cImage => cImage.CarId == carId);
 
             if (result.Count == 0)
             {
-                return new ErrorDataResult<List<CarImage>>();
+                return new ErrorDataResult<List<CarImage>>(defaultImagePath);
             }
 
             return new SuccessDataResult<List<CarImage>>(result);
@@ -108,9 +108,9 @@ namespace RentalCar.Business.Concrete
 
         public IDataResult<CarImage> GetImageByCarId(int carId, int imagePath)
         {
-           var result =  BusinessRules.Run(CheckIfExistCar(carId), CheckIfExistImageForCar(carId, imagePath));
+            var result = BusinessRules.Run(CheckIfExistCar(carId), CheckIfExistImageForCar(carId, imagePath));
 
-            if (result!=null)
+            if (result != null)
             {
                 return new ErrorDataResult<CarImage>();
             }
@@ -133,6 +133,7 @@ namespace RentalCar.Business.Concrete
             string oldCarImagePath = carImage.ImagePath;
 
             carImage.ImagePath = newImagePath;
+
             carImage.Date = DateTime.Now;
 
             _carImageDal.Update(carImage);
@@ -142,6 +143,6 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-       
+
     }
 }

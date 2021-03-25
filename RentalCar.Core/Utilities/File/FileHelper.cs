@@ -29,7 +29,6 @@ namespace RentalCar.Core.Utilities.File
                         fileStream.Flush();
                     }
                 }
-
                 return imagePath;
             }
             catch (Exception)
@@ -44,6 +43,11 @@ namespace RentalCar.Core.Utilities.File
             {
                 System.IO.File.Delete(imagePath);
             }
+        }
+
+        public static string GetDefaultImagePath(string path)
+        {
+            return path + "default.jpg";
         }
     }
 }
