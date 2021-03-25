@@ -204,11 +204,10 @@ namespace RentalCar.WebAPI.Controllers
 
             var result = _carImageService.GetAllByCarId(carId,
 
-               new List<CarImage>{
+            new List<CarImage>
+            {
                 new CarImage { ImagePath = defaultImagePath }
-            }
-
-                );
+            });
 
             if (result.Success)
             {
