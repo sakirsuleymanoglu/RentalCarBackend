@@ -13,7 +13,7 @@ namespace RentalCar.Business.Concrete
 {
     public class CarManager : ICarService
     {
-        private ICarDal _carDal;
+        private readonly ICarDal _carDal;
 
         public CarManager(ICarDal carDal)
         {
@@ -101,28 +101,28 @@ namespace RentalCar.Business.Concrete
 
         public IResult Delete(Car car)
         {
-            var result = _carDal.Get(c => c.Id == car.Id);
+            var result = BusinessRules.Run(CheckExistOfCar(car.Id));
 
-            if (result == null)
+            if (result != null)
             {
                 return new ErrorResult();
             }
 
-            _carDal.Delete(result);
+            _carDal.Delete(car);
 
             return new SuccessResult();
         }
 
         public IResult Update(Car car)
         {
-            var result = _carDal.Get(c => c.Id == car.Id);
+            var result = BusinessRules.Run(CheckExistOfCar(car.Id));
 
-            if (result == null)
+            if (result != null)
             {
                 return new ErrorResult();
             }
 
-            _carDal.Update(result);
+            _carDal.Update(car);
 
             return new SuccessResult();
         }

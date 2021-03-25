@@ -11,7 +11,7 @@ namespace RentalCar.Core.Aspects.Autofac.Validation
 {
     public class ValidationAspect : MethodInterception
     {
-        private Type _validatorType;
+        private readonly Type _validatorType;
 
         public ValidationAspect(Type validatorType)
         {

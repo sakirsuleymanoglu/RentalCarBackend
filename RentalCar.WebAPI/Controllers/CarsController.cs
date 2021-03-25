@@ -18,9 +18,9 @@ namespace RentalCar.WebAPI.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        private ICarService _carService;
-        private ICarImageService _carImageService;
-        IWebHostEnvironment _webHostEnvironment;
+        private readonly ICarService _carService;
+        private readonly ICarImageService _carImageService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public CarsController(ICarService carService, ICarImageService carImageService, IWebHostEnvironment webHostEnvironment)
         {
