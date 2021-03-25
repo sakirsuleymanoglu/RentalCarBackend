@@ -1,5 +1,6 @@
 ﻿using RentalCar.Business.Abstract;
 using RentalCar.Core.Business;
+using RentalCar.Core.Utilities.File;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
@@ -50,19 +51,21 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        public IResult Delete(int carId, int imagePath)
+        public IResult Delete(int carId, int imagePathId)
         {
             var result = BusinessRules.Run(CheckIfExistCar(carId),
-                CheckIfExistImageForCar(carId, imagePath));
+                CheckIfExistImageForCar(carId, imagePathId));
 
             if (result != null)
             {
                 return new ErrorResult();
             }
 
-            var carImage = GetImageByCarId(carId, imagePath).Data;
+            var carImage = GetImageByCarId(carId, imagePathId).Data;
 
             _carImageDal.Delete(carImage);
+
+            FileHelper.DeleteFile(carImage.ImagePath);
 
             return new SuccessResult();
         }
@@ -117,7 +120,26 @@ namespace RentalCar.Business.Concrete
 
         public IResult Update(int carId, int imagePathId, string newImagePath)
         {
-            return null;
+            var result = BusinessRules.Run(CheckIfExistCar(carId),
+               CheckIfExistImageForCar(carId, imagePathId));
+
+            if (result != null)
+            {
+                return new ErrorResult();
+            }
+
+            var carImage = GetImageByCarId(carId, imagePathId).Data;
+
+            string oldCarImagePath = carImage.ImagePath;
+
+            carImage.ImagePath = newImagePath;
+            carImage.Date = DateTime.Now;
+
+            _carImageDal.Update(carImage);
+
+            FileHelper.DeleteFile(oldCarImagePath);
+
+            return new SuccessResult();
         }
 
        

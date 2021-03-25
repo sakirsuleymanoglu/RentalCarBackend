@@ -21,7 +21,7 @@ namespace RentalCar.WebAPI.Controllers
         private ICarService _carService;
         private ICarImageService _carImageService;
         IWebHostEnvironment _webHostEnvironment;
-
+       
         public CarsController(ICarService carService, ICarImageService carImageService, IWebHostEnvironment webHostEnvironment)
         {
             _carService = carService;
@@ -165,7 +165,24 @@ namespace RentalCar.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("deleteimage")]
+        [HttpPut("updateimage")]
+        public IActionResult UpdateImage(IFormFile formFile, int carId, int imagePathId)
+        {
+            string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
+
+            string imagePath = FileHelper.CreateFile(path, formFile);
+
+            var result = _carImageService.Update(carId, imagePathId, imagePath);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpDelete("deleteimage")]
         public IActionResult DeleteImage(int carId, int imagePathId)
         {
            var result = _carImageService.Delete(carId, imagePathId);
