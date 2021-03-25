@@ -73,8 +73,8 @@ namespace RentalCar.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetRentalById(int id)
+        [HttpGet]
+        public IActionResult GetById(int id)
         {
             var result = _rentalService.GetById(id);
 
