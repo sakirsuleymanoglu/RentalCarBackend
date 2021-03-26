@@ -13,7 +13,7 @@ namespace RentalCar.WebAPI.Controllers
     [ApiController]
     public class AuthsController : ControllerBase
     {
-        IAuthService _authService;
+        private readonly IAuthService _authService;
 
         public AuthsController(IAuthService authService)
         {

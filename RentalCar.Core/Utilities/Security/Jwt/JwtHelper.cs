@@ -18,7 +18,7 @@ namespace RentalCar.Core.Utilities.Security.Jwt
 
         private readonly TokenOptions _tokenOptions;
 
-        private DateTime _accessTokenExpiration;
+        private readonly DateTime _accessTokenExpiration;
 
         public JwtHelper(IConfiguration configuration)
         {
@@ -70,8 +70,7 @@ namespace RentalCar.Core.Utilities.Security.Jwt
             claims.AddEmail(user.Email);
             claims.AddName($"{user.FirstName} {user.LastName}");
             claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
-            
-
+           
             return claims;
         }
     }
