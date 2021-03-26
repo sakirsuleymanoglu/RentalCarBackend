@@ -8,7 +8,7 @@ namespace RentalCar.Business.Abstract
 {
     public interface IUserService
     {
-        IDataResult<List<OperationClaim>> GetClaims(int userId);
+        IDataResult<List<OperationClaim>> GetClaims(User user);
         IDataResult<List<User>> GetAll();
         IDataResult<User> GetById(int id);
         IDataResult<User> GetByEMail(string email);

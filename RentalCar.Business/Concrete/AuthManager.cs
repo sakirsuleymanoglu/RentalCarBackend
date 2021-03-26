@@ -24,7 +24,18 @@ namespace RentalCar.Business.Concrete
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
-            throw new NotImplementedException();
+            var result = _userService.GetClaims(user);
+
+            if (!result.Success)
+            {
+                return new ErrorDataResult<AccessToken>();
+            }
+
+            var userClaims = result.Data;
+
+            var accessToken = _tokenHelper.CreateToken(user, userClaims);
+
+            return new SuccessDataResult<AccessToken>(accessToken);
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
