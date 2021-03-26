@@ -26,12 +26,16 @@ namespace RentalCar.Business.Concrete
 
         public IResult Delete(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Delete(user);
+
+            return new SuccessResult();
         }
 
         public IDataResult<List<User>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _userDal.GetAll();
+
+            return new SuccessDataResult<List<User>>(result);
         }
 
         public IDataResult<User> GetByEMail(string email)
@@ -48,7 +52,9 @@ namespace RentalCar.Business.Concrete
 
         public IDataResult<User> GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = _userDal.Get(u => u.Id == id);
+
+            return new SuccessDataResult<User>(result);
         }
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
@@ -60,7 +66,9 @@ namespace RentalCar.Business.Concrete
 
         public IResult Update(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Update(user);
+
+            return new SuccessResult();
         }
     }
 }
