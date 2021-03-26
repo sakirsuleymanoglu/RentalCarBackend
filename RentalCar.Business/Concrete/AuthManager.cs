@@ -55,7 +55,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<User>(user);
         }
 
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
+        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;
 
@@ -66,7 +66,7 @@ namespace RentalCar.Business.Concrete
                 return new ErrorDataResult<User>();
             }
 
-            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
 
             var user = new User
             {
