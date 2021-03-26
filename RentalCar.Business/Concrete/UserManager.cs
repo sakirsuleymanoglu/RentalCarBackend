@@ -17,30 +17,6 @@ namespace RentalCar.Business.Concrete
             _userDal = userDal;
         }
 
-        public IDataResult<List<User>> GetAll()
-        {
-            var result = _userDal.GetAll();
-
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<User>>();
-            }
-
-            return new SuccessDataResult<List<User>>(result);
-        }
-
-        public IDataResult<User> GetById(int id)
-        {
-            var result = _userDal.Get(u => u.Id == id);
-
-            if (result == null)
-            {
-                return new ErrorDataResult<User>();
-            }
-
-            return new SuccessDataResult<User>(result);
-        }
-
         public IResult Add(User user)
         {
             _userDal.Add(user);
@@ -50,30 +26,46 @@ namespace RentalCar.Business.Concrete
 
         public IResult Delete(User user)
         {
-            var result = _userDal.Get(u => u.Id == user.Id);
+            throw new NotImplementedException();
+        }
 
-            if (result == null)
+        public IDataResult<List<User>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<User> GetByEMail(string email)
+        {
+            var result = _userDal.Get(u => u.Email == email);
+
+            if (result!=null)
             {
-                return new ErrorResult();
+                return new ErrorDataResult<User>();
             }
 
-            _userDal.Delete(user);
+            return new SuccessDataResult<User>(result);
+        }
 
-            return new SuccessResult();
+        public IDataResult<User> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<OperationClaim>> GetClaims(int userId)
+        {
+            var result = _userDal.GetClaims(userId);
+
+            if (result.Count == 0)
+            {
+                return new ErrorDataResult<List<OperationClaim>>();
+            }
+
+            return new SuccessDataResult<List<OperationClaim>>(result);
         }
 
         public IResult Update(User user)
         {
-            var result = _userDal.Get(u => u.Id == user.Id);
-
-            if (result == null)
-            {
-                return new ErrorResult();
-            }
-
-            _userDal.Update(user);
-
-            return new SuccessResult();
+            throw new NotImplementedException();
         }
     }
 }

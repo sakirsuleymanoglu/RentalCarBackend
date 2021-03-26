@@ -8,5 +8,6 @@ namespace RentalCar.DataAccess.Abstract
 {
     public interface IUserDal : IEntityRepository<User>
     {
+        List<OperationClaim> GetClaims(int userId);
     }
 }
