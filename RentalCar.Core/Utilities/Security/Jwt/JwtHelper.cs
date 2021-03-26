@@ -15,13 +15,17 @@ namespace RentalCar.Core.Utilities.Security.Jwt
     public class JwtHelper : ITokenHelper
     {
         private readonly IConfiguration _configuration;
+
         private readonly TokenOptions _tokenOptions;
+
         private DateTime _accessTokenExpiration;
 
         public JwtHelper(IConfiguration configuration)
         {
             _configuration = configuration;
+
             _tokenOptions = _configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
             _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
         }
 
