@@ -10,15 +10,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RentalCar.Business.Abstract;
-using RentalCar.Business.Concrete;
-using RentalCar.DataAccess.Abstract;
-using RentalCar.DataAccess.Concrete.EntityFramework;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using RentalCar.Core.Utilities.Security.Jwt;
 using RentalCar.Core.Utilities.Security.Encryption;
+using RentalCar.Core.Utilities.IoC;
+using RentalCar.Core.Extensions;
+using RentalCar.Core.DependencyResolvers;
 
 namespace RentalCar.WebAPI
 {
@@ -35,7 +34,9 @@ namespace RentalCar.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddCors();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("RentalCar", new OpenApiInfo
@@ -69,6 +70,8 @@ namespace RentalCar.WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
                     };
                 });
+
+            services.AddDependencyResolvers(new CoreModule());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -94,6 +97,7 @@ namespace RentalCar.WebAPI
             });
 
             app.UseSwagger();
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/RentalCar/swagger.json", "RentalCar");
