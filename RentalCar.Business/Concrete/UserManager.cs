@@ -4,13 +4,13 @@ using System.Text;
 using RentalCar.Business.Abstract;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
-using RentalCar.Entities.Concrete;
+using RentalCar.Core.Entities.Concrete;
 
 namespace RentalCar.Business.Concrete
 {
     public class UserManager : IUserService
     {
-        private IUserDal _userDal;
+        private readonly IUserDal _userDal;
 
         public UserManager(IUserDal userDal)
         {

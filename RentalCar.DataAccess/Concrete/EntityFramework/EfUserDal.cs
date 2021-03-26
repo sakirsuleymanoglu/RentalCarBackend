@@ -4,7 +4,7 @@ using System.Text;
 using System.Linq;
 using RentalCar.Core.DataAccess.EntityFramework;
 using RentalCar.DataAccess.Abstract;
-using RentalCar.Entities.Concrete;
+using RentalCar.Core.Entities.Concrete;
 
 namespace RentalCar.DataAccess.Concrete.EntityFramework
 {

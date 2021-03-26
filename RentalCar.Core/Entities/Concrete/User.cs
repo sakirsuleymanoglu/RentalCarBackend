@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using RentalCar.Core.Entities;
 
-namespace RentalCar.Entities.Concrete
+namespace RentalCar.Core.Entities.Concrete
 {
     public class User : IEntity
     {

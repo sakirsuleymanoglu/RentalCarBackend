@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using RentalCar.Core.DataAccess;
-using RentalCar.Entities.Concrete;
+using RentalCar.Core.Entities.Concrete;
 
 namespace RentalCar.DataAccess.Abstract
 {
