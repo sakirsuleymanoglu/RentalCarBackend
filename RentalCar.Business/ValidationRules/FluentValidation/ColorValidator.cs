@@ -10,7 +10,8 @@ namespace RentalCar.Business.ValidationRules.FluentValidation
     {
         public ColorValidator()
         {
-
+            RuleFor(c => c.Name).NotNull();
+            RuleFor(c => c.Name).MinimumLength(3);
         }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using RentalCar.Business.Abstract;
+using RentalCar.Business.ValidationRules.FluentValidation;
+using RentalCar.Core.Aspects.Autofac.Validation;
 using RentalCar.Core.Business;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
@@ -42,6 +44,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<Color>(result);
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
             var result = BusinessRules.Run(CheckIfExistOfColorName(color.Name));
@@ -70,6 +73,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
             var result = BusinessRules.Run(CheckIfExistOfColor(color.Id));
