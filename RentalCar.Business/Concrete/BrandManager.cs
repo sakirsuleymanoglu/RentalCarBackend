@@ -25,12 +25,7 @@ namespace RentalCar.Business.Concrete
         public IDataResult<List<Brand>> GetAll()
         {
             var result = _brandDal.GetAll();
-
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<Brand>>();
-            }
-
+            
             return new SuccessDataResult<List<Brand>>(result);
         }
 

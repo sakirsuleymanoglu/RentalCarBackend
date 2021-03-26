@@ -21,11 +21,6 @@ namespace RentalCar.Business.Concrete
         {
             var result = _customerDal.GetAll();
 
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<Customer>>();
-            }
-
             return new SuccessDataResult<List<Customer>>(result);
         }
 

@@ -24,22 +24,12 @@ namespace RentalCar.Business.Concrete
         {
             var result = _carDal.GetAll();
 
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<Car>>();
-            }
-
             return new SuccessDataResult<List<Car>>(result);
         }
 
         public IDataResult<List<Car>> GetAllByBrandId(int brandId)
         {
             var result = _carDal.GetAll(c => c.BrandId == brandId);
-
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<Car>>();
-            }
 
             return new SuccessDataResult<List<Car>>(result);
         }
@@ -48,11 +38,6 @@ namespace RentalCar.Business.Concrete
         {
             var result = _carDal.GetAll(c => c.ColorId == colorId);
 
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<Car>>();
-            }
-
             return new SuccessDataResult<List<Car>>(result);
         }
 
@@ -60,22 +45,12 @@ namespace RentalCar.Business.Concrete
         {
             var result = _carDal.GetAll(c => c.ModelYear == modelYear);
 
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<Car>>();
-            }
-
             return new SuccessDataResult<List<Car>>(result);
         }
 
         public IDataResult<List<Car>> GetAllByModel(string model)
         {
             var result = _carDal.GetAll(c => c.Model == model);
-
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<Car>>();
-            }
 
             return new SuccessDataResult<List<Car>>(result);
         }
@@ -142,11 +117,6 @@ namespace RentalCar.Business.Concrete
         public IDataResult<List<CarDetailsDto>> GetAllDetails()
         {
             var result = _carDal.GetAllDetailsOfCars();
-
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<CarDetailsDto>>(result);
-            }
 
             return new SuccessDataResult<List<CarDetailsDto>>(result);
         }

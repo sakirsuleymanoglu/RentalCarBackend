@@ -24,11 +24,6 @@ namespace RentalCar.Business.Concrete
         {
             var result = _colorDal.GetAll();
 
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<Color>>();
-            }
-
             return new SuccessDataResult<List<Color>>(result);
         }
 
