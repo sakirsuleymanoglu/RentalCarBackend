@@ -26,9 +26,11 @@ namespace RentalCar.Core.Utilities.File
                     using (FileStream fileStream = System.IO.File.Create(imagePath))
                     {
                         formFile.CopyTo(fileStream);
+
                         fileStream.Flush();
                     }
                 }
+
                 return imagePath;
             }
             catch (Exception)
