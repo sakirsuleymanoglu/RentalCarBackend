@@ -15,6 +15,10 @@ using RentalCar.Business.Concrete;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.DataAccess.Concrete.EntityFramework;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using RentalCar.Core.Utilities.Security.Jwt;
+using RentalCar.Core.Utilities.Security.Encryption;
 
 namespace RentalCar.WebAPI
 {
@@ -48,6 +52,23 @@ namespace RentalCar.WebAPI
                     },
                 });
             });
+
+            var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+                options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidateLifetime = true,
+                        ValidAudience = tokenOptions.Audience,
+                        ValidIssuer = tokenOptions.Issuer,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
+                    };
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -65,6 +86,7 @@ namespace RentalCar.WebAPI
 
             app.UseAuthorization();
 
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

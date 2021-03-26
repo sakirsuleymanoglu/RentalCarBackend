@@ -38,12 +38,12 @@ namespace RentalCar.Business.Concrete
         {
             var result = _userDal.Get(u => u.Email == email);
 
-            if (result!=null)
+            if (result != null)
             {
-                return new ErrorDataResult<User>();
+                return new SuccessDataResult<User>(result);
             }
 
-            return new SuccessDataResult<User>(result);
+            return new ErrorDataResult<User>();
         }
 
         public IDataResult<User> GetById(int id)
@@ -54,11 +54,6 @@ namespace RentalCar.Business.Concrete
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
             var result = _userDal.GetClaims(user.Id);
-
-            if (result.Count == 0)
-            {
-                return new ErrorDataResult<List<OperationClaim>>();
-            }
 
             return new SuccessDataResult<List<OperationClaim>>(result);
         }

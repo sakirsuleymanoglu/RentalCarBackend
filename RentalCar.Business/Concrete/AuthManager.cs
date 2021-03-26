@@ -26,11 +26,6 @@ namespace RentalCar.Business.Concrete
         {
             var result = _userService.GetClaims(user);
 
-            if (!result.Success)
-            {
-                return new ErrorDataResult<AccessToken>();
-            }
-
             var userClaims = result.Data;
 
             var accessToken = _tokenHelper.CreateToken(user, userClaims);
@@ -59,13 +54,6 @@ namespace RentalCar.Business.Concrete
         {
             byte[] passwordHash, passwordSalt;
 
-            var result = BusinessRules.Run(CheckIfUserAlreadyExists(userForRegisterDto.Email));
-
-            if (result != null)
-            {
-                return new ErrorDataResult<User>();
-            }
-
             HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
 
             var user = new User
@@ -78,16 +66,21 @@ namespace RentalCar.Business.Concrete
                 Status = true
             };
 
-            _userService.Add(user);
+            var result = _userService.Add(user);
+
+            if (!result.Success)
+            {
+                return new ErrorDataResult<User>();
+            }
 
             return new SuccessDataResult<User>(user);
         }
 
         public IResult CheckIfUserAlreadyExists(string email)
         {
-            var result = _userService.GetByEMail(email);
+            var result = _userService.GetByEMail(email).Data;
 
-            if (!result.Success)
+            if (result == null)
             {
                 return new ErrorResult();
             }
