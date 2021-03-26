@@ -49,7 +49,7 @@ namespace RentalCar.Business.Concrete
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {        
-            var result = BusinessRules.Run(CheckExistOfBrandName(brand.Name));
+            var result = BusinessRules.Run(CheckIfExistOfBrandName(brand.Name));
 
             if (result != null)
             {
@@ -63,7 +63,7 @@ namespace RentalCar.Business.Concrete
 
         public IResult Delete(Brand brand)
         {
-            var result = BusinessRules.Run(CheckExistOfBrand(brand.Id));
+            var result = BusinessRules.Run(CheckIfExistOfBrand(brand.Id));
 
             if (result != null)
             {
@@ -78,7 +78,7 @@ namespace RentalCar.Business.Concrete
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
-            var result = BusinessRules.Run(CheckExistOfBrand(brand.Id));
+            var result = BusinessRules.Run(CheckIfExistOfBrand(brand.Id));
 
             if (result != null)
             {
@@ -90,7 +90,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        private IResult CheckExistOfBrand(int brandId)
+        private IResult CheckIfExistOfBrand(int brandId)
         {
             var result = _brandDal.Get(b => b.Id == brandId);
 
@@ -102,7 +102,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        private IResult CheckExistOfBrandName(string brandName)
+        private IResult CheckIfExistOfBrandName(string brandName)
         {
             var result = _brandDal.Get(b => b.Name == brandName);
 
