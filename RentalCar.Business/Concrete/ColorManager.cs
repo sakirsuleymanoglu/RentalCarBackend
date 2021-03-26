@@ -51,7 +51,7 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             _colorDal.Add(color);
@@ -65,7 +65,7 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             _colorDal.Delete(color);
@@ -80,7 +80,7 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             _colorDal.Update(color);

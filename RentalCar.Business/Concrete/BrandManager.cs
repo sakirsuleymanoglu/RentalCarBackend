@@ -53,7 +53,7 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             _brandDal.Add(brand);

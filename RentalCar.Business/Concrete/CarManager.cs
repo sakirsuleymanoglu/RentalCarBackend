@@ -105,7 +105,7 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             _carDal.Delete(car);
@@ -119,7 +119,7 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             _carDal.Update(car);

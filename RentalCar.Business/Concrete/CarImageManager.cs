@@ -27,7 +27,7 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             _carImageDal.Add(new CarImage
@@ -58,7 +58,7 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             var carImage = GetImageByCarId(carId, imagePathId).Data;
@@ -125,7 +125,7 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             var carImage = GetImageByCarId(carId, imagePathId).Data;
@@ -145,8 +145,6 @@ namespace RentalCar.Business.Concrete
 
         public IDataResult<List<CarImage>> GetAllByCarId(int carId, List<CarImage> defaultImages)
         {
-            var result = BusinessRules.Run(CheckIfExistCar(carId), CheckIfImageCountForCar(carId));
-          
             if (!CheckIfExistCar(carId).Success)
             {
                 return new ErrorDataResult<List<CarImage>>();
