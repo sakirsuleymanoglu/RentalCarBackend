@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RentalCar.Business.Abstract;
 using RentalCar.Entities.Concrete;
+using RentalCar.Core.Entities.Concrete;
 
 namespace RentalCar.WebAPI.Controllers
 {

@@ -51,9 +51,9 @@ namespace RentalCar.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<OperationClaim>> GetClaims(int userId)
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
-            var result = _userDal.GetClaims(userId);
+            var result = _userDal.GetClaims(user.Id);
 
             if (result.Count == 0)
             {
