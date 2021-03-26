@@ -23,6 +23,7 @@ namespace RentalCar.DataAccess.Concrete.EntityFramework
                                  Id = operationClaim.Id,
                                  Name = operationClaim.Name
                              };
+
                 return result.ToList();                      
             }
         }

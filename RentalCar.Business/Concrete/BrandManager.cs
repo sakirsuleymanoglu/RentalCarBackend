@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using RentalCar.Business.Abstract;
+using RentalCar.Business.BusinessAspects.Autofac;
 using RentalCar.Business.ValidationRules.FluentValidation;
 using RentalCar.Core.Aspects.Autofac.Validation;
 using RentalCar.Core.Business;
@@ -39,6 +40,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<Brand>(result);
         }
 
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {        
