@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using FluentValidation;
 using RentalCar.Business.Abstract;
 using RentalCar.Business.ValidationRules.FluentValidation;
 using RentalCar.Core.Aspects.Autofac.Validation;
 using RentalCar.Core.Business;
-using RentalCar.Core.CrossCuttingCorcerns.Validation.FluentValidation;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
