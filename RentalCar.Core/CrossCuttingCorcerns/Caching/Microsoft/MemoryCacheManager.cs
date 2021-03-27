@@ -11,7 +11,7 @@ namespace RentalCar.Core.CrossCuttingCorcerns.Caching.Microsoft
 {
     public class MemoryCacheManager : ICacheManager
     {
-        IMemoryCache _memoryCache;
+        private readonly IMemoryCache _memoryCache;
 
         public MemoryCacheManager()
         {

@@ -13,11 +13,13 @@ namespace RentalCar.Business.BusinessAspects.Autofac
     public class SecuredOperation : MethodInterception
     {
         private readonly string[] _roles;
+
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public SecuredOperation(string roles)
         {
             _roles = roles.Split(',');
+
             _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
         }
 
