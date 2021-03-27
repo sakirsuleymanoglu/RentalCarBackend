@@ -11,9 +11,9 @@ namespace RentalCar.Core.Aspects.Autofac.Performance
 {
     public class PerformanceAspect : MethodInterception
     {
-        private int _interval;
+        private readonly int _interval;
 
-        private Stopwatch _stopwatch;
+        private readonly Stopwatch _stopwatch;
 
         public PerformanceAspect(int interval)
         {
@@ -21,7 +21,6 @@ namespace RentalCar.Core.Aspects.Autofac.Performance
 
             _stopwatch = ServiceTool.ServiceProvider.GetService<Stopwatch>();
         }
-
 
         protected override void OnBefore(IInvocation invocation)
         {
