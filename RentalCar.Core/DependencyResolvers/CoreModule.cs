@@ -5,6 +5,7 @@ using RentalCar.Core.CrossCuttingCorcerns.Caching.Microsoft;
 using RentalCar.Core.Utilities.IoC;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace RentalCar.Core.DependencyResolvers
@@ -16,6 +17,7 @@ namespace RentalCar.Core.DependencyResolvers
             serviceCollection.AddMemoryCache();
             serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             serviceCollection.AddSingleton<ICacheManager, MemoryCacheManager>();
+            serviceCollection.AddSingleton<Stopwatch>();
         }
     }
 }
