@@ -21,10 +21,12 @@ namespace RentalCar.Business.Concrete
             _brandDal = brandDal;
         }
 
+        [SecuredOperation("admin, moderator, user")]
+        [ValidationAspect(typeof(BrandValidator))]
         public IDataResult<List<Brand>> GetAll()
         {
             var result = _brandDal.GetAll();
-            
+
             return new SuccessDataResult<List<Brand>>(result);
         }
 
@@ -40,10 +42,10 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<Brand>(result);
         }
 
-        [SecuredOperation("admin")]
+        [SecuredOperation("admin, moderator")]
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
-        {        
+        {
             var result = BusinessRules.Run(CheckIfExistOfBrandName(brand.Name));
 
             if (result != null)
@@ -56,6 +58,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
+        [SecuredOperation("admin, moderator")]
         public IResult Delete(Brand brand)
         {
             var result = BusinessRules.Run(CheckIfExistOfBrand(brand.Id));
@@ -70,6 +73,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
+        [SecuredOperation("admin, moderator")]
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
