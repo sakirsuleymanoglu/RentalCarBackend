@@ -33,7 +33,7 @@ namespace RentalCar.Business.BusinessAspects.Autofac
                 }
             }
 
-            throw new Exception();
+            throw new Exception("Yetkiniz yok");
         }
     }
 }
