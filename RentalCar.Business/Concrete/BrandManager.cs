@@ -4,6 +4,7 @@ using System.Text;
 using RentalCar.Business.Abstract;
 using RentalCar.Business.BusinessAspects.Autofac;
 using RentalCar.Business.ValidationRules.FluentValidation;
+using RentalCar.Core.Aspects.Autofac.Caching;
 using RentalCar.Core.Aspects.Autofac.Validation;
 using RentalCar.Core.Business;
 using RentalCar.Core.Utilities.Results;
@@ -21,6 +22,7 @@ namespace RentalCar.Business.Concrete
             _brandDal = brandDal;
         }
 
+        [CacheAspect]
         // [SecuredOperation("admin, moderator, user")]
         [ValidationAspect(typeof(BrandValidator))]
         public IDataResult<List<Brand>> GetAll()
@@ -30,6 +32,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Brand>>(result);
         }
 
+        [CacheAspect]
         public IDataResult<Brand> GetById(int id)
         {
             var result = _brandDal.Get(b => b.Id == id);
@@ -42,6 +45,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<Brand>(result);
         }
 
+        [CacheRemoveAspect("IBrandService.Get")]
         // [SecuredOperation("admin, moderator")]
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
@@ -58,6 +62,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
+        [CacheRemoveAspect("IBrandService.Get")]
         //[SecuredOperation("admin, moderator")]
         public IResult Delete(Brand brand)
         {
@@ -73,7 +78,8 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        [SecuredOperation("admin, moderator")]
+        [CacheRemoveAspect("IBrandService.Get")]
+        //[SecuredOperation("admin, moderator")]
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
