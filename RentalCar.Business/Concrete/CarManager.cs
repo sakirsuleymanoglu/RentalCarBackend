@@ -120,5 +120,12 @@ namespace RentalCar.Business.Concrete
 
             return new SuccessDataResult<List<CarDetailsDto>>(result);
         }
+
+        public IDataResult<List<CarDetailsDto>> GetAllDetailsByBrandId(int brandId)
+        {
+            var result = _carDal.GetAllDetailsByBrandId(brandId);
+
+            return new SuccessDataResult<List<CarDetailsDto>>(result);
+        }
     }
 }
