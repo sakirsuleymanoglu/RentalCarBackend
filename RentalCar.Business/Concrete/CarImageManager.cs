@@ -70,18 +70,6 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        private IResult CheckIfImageCountForCar(int carId)
-        {
-            var result = _carImageDal.GetAll(c => c.CarId == carId).Count;
-
-            if (result == 0)
-            {
-                return new ErrorResult();
-            }
-
-            return new SuccessResult();
-        }
-
         private IResult CheckIfExistCar(int carId)
         {
             var result = _carService.GetById(carId);
@@ -143,21 +131,19 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<List<CarImage>> GetAllByCarId(int carId, List<CarImage> defaultImages)
+        public IDataResult<List<CarImage>> GetAllImagesByCarId(int carId)
         {
-            if (!CheckIfExistCar(carId).Success)
+            var result = BusinessRules.Run(CheckIfExistCar(carId));
+
+            if (result != null)
             {
                 return new ErrorDataResult<List<CarImage>>();
             }
-            else
-            {
-                if (!CheckIfImageCountForCar(carId).Success)
-                {
-                    return new ErrorDataResult<List<CarImage>>(defaultImages);
-                }
-            }
 
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
+            var images = _carImageDal.GetAll(c => c.CarId == carId);
+
+            return new SuccessDataResult<List<CarImage>>(images);
+
         }
     }
 }

@@ -20,5 +20,7 @@ namespace RentalCar.Business.Abstract
         IResult Delete(Car car);
         IResult Update(Car car);
         IDataResult<List<CarDetailsDto>> GetAllDetailsByBrandId(int brandId);
+        IDataResult<List<CarDetailsDto>> GetAllDetailsByColorId(int colorId);
+        IDataResult<CarDetailsDto> GetDetailsByCarId(int carId);
     }
 }

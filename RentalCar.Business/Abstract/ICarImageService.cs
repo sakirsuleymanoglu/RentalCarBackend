@@ -11,7 +11,7 @@ namespace RentalCar.Business.Abstract
         IResult Add(int carId, string imagePath);
         IResult Delete(int carId, int imagePathId);
         IResult Update(int carId, int imagePathId, string newImagePath);
-        IDataResult<List<CarImage>> GetAllByCarId(int carId, List<CarImage> defaultImages);
+        IDataResult<List<CarImage>> GetAllImagesByCarId(int carId);
         IDataResult<CarImage> GetImageByCarId(int carId, int imagePathId);
     }
 }

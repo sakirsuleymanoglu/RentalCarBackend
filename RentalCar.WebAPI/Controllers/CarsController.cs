@@ -55,11 +55,56 @@ namespace RentalCar.WebAPI.Controllers
             return BadRequest(result);
         }
 
-
         [HttpGet("getallwithdetailsbybrandid")]
-        public IActionResult GetAllDetails(int brandId)
+        public IActionResult GetAllDetailsByBrand(int brandId)
         {
             var result = _carService.GetAllDetailsByBrandId(brandId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpGet("getallwithdetailsbycolorid")]
+        public IActionResult GetAllDetailsByColor(int colorId)
+        {
+            var result = _carService.GetAllDetailsByColorId(colorId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpGet("getwithdetailsbycarid")]
+        public IActionResult GetDetails(int carId)
+        {
+            string path = GetPath();
+
+            var result = _carService.GetDetailsByCarId(carId);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            result.Data.Images = _carImageService.GetAllImagesByCarId(carId).Data;
+
+            if (result.Data.Images.Count == 0)
+            {
+                result.Data.Images = new List<CarImage>{
+                    new CarImage
+                    {
+                        CarId = carId,
+                        ImagePath = FileHelper.GetDefaultImagePath(path, "jpg")
+                    }
+                };
+            }
 
             if (result.Success)
             {
@@ -225,14 +270,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("getallimages")]
         public IActionResult GetAllImages(int carId)
         {
-            string path = GetPath();
-
-            string defaultImagePath = path + FileHelper.GetDefaultImagePath(path, "jpg");
-
-            var result = _carImageService.GetAllByCarId(carId, new List<CarImage>
-            {
-                new CarImage { ImagePath = defaultImagePath }
-            });
+            var result = _carImageService.GetAllImagesByCarId(carId);
 
             if (result.Success)
             {

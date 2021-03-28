@@ -127,5 +127,24 @@ namespace RentalCar.Business.Concrete
 
             return new SuccessDataResult<List<CarDetailsDto>>(result);
         }
+
+        public IDataResult<List<CarDetailsDto>> GetAllDetailsByColorId(int colorId)
+        {
+            var result = _carDal.GetAllDetailsByColorId(colorId);
+
+            return new SuccessDataResult<List<CarDetailsDto>>(result);
+        }
+
+        public IDataResult<CarDetailsDto> GetDetailsByCarId(int carId)
+        {
+            var result = BusinessRules.Run(CheckExistOfCar(carId));
+
+            if (result!=null)
+            {
+                return new ErrorDataResult<CarDetailsDto>();
+            }
+
+            return new SuccessDataResult<CarDetailsDto>(_carDal.GetDetailsByCarId(carId));
+        }
     }
 }
