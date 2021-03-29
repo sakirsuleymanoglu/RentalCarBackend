@@ -91,6 +91,8 @@ namespace RentalCar.WebAPI
 
             app.UseAuthentication();
 
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

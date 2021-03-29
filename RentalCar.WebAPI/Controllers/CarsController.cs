@@ -84,8 +84,6 @@ namespace RentalCar.WebAPI.Controllers
         [HttpGet("getwithdetailsbycarid")]
         public IActionResult GetDetails(int carId)
         {
-            string path = GetPath();
-
             var result = _carService.GetDetailsByCarId(carId);
 
             if (!result.Success)
@@ -101,7 +99,7 @@ namespace RentalCar.WebAPI.Controllers
                     new CarImage
                     {
                         CarId = carId,
-                        ImagePath = FileHelper.GetDefaultImagePath(path, "jpg")
+                        ImagePath = FileHelper.GetDefaultImagePath("jpg")
                     }
                 };
             }
@@ -221,18 +219,16 @@ namespace RentalCar.WebAPI.Controllers
         [HttpPost("addimage")]
         public IActionResult AddImage(IFormFile formFile, int carId)
         {
-            string path = GetPath();
+            string image = FileHelper.CreateFile(GetStaticUploadPath(), formFile);
 
-            string imagePath = FileHelper.CreateFile(path, formFile);
-
-            var result = _carImageService.Add(carId, imagePath);
+            var result = _carImageService.Add(carId, image);
 
             if (result.Success)
             {
                 return Ok(result);
             }
 
-            FileHelper.DeleteFile(imagePath);
+            FileHelper.DeleteFile(GetStaticUploadPath() + image);
 
             return BadRequest(result);
         }
@@ -240,11 +236,9 @@ namespace RentalCar.WebAPI.Controllers
         [HttpPut("updateimage")]
         public IActionResult UpdateImage(IFormFile formFile, int carId, int imagePathId)
         {
-            string path = GetPath();
+            string image = FileHelper.CreateFile(GetStaticUploadPath(), formFile);
 
-            string imagePath = FileHelper.CreateFile(path, formFile);
-
-            var result = _carImageService.Update(carId, imagePathId, imagePath);
+            var result = _carImageService.Update(carId, imagePathId, image);
 
             if (result.Success)
             {
@@ -281,7 +275,7 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [NonAction]
-        public string GetPath()
+        public string GetStaticUploadPath()
         {
             return _webHostEnvironment.WebRootPath + "\\uploads\\";
         }

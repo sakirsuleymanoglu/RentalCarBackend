@@ -8,20 +8,22 @@ namespace RentalCar.Core.Utilities.File
 {
     public static class FileHelper
     {
-        public static string CreateFile(string path, IFormFile formFile)
+        public static string CreateFile(string rootPath, IFormFile formFile)
         {
-            string imagePath = null;
+            string imageFile = null;
 
             try
             {
                 if (formFile.Length > 0)
                 {
-                    if (!Directory.Exists(path))
+                    if (!Directory.Exists(rootPath))
                     {
-                        Directory.CreateDirectory(path);
+                        Directory.CreateDirectory(rootPath);
                     }
 
-                    imagePath = path + Guid.NewGuid() + formFile.FileName;
+                    imageFile = Guid.NewGuid() + formFile.FileName;
+
+                    string imagePath = rootPath + imageFile;
 
                     using (FileStream fileStream = System.IO.File.Create(imagePath))
                     {
@@ -31,7 +33,7 @@ namespace RentalCar.Core.Utilities.File
                     }
                 }
 
-                return imagePath;
+                return imageFile;
             }
             catch (Exception)
             {
@@ -47,9 +49,9 @@ namespace RentalCar.Core.Utilities.File
             }
         }
 
-        public static string GetDefaultImagePath(string path, string fileType)
+        public static string GetDefaultImagePath(string fileType)
         {
-            return path + "default." + fileType;
+            return "default." + fileType;
         }
     }
 }
