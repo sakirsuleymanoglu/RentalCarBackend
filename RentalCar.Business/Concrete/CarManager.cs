@@ -59,11 +59,6 @@ namespace RentalCar.Business.Concrete
         {
             var result = _carDal.Get(c => c.Id == id);
 
-            if (result == null)
-            {
-                return new ErrorDataResult<Car>();
-            }
-
             return new SuccessDataResult<Car>(result);
         }
 

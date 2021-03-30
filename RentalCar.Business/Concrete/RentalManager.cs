@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using RentalCar.Business.Abstract;
+using RentalCar.Core.Business;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
@@ -53,6 +54,13 @@ namespace RentalCar.Business.Concrete
 
         public IResult Add(Rental rental)
         {
+            var result = BusinessRules.Run(CheckIfExistRentalDate(rental.RentDate, rental.ReturnDate));
+
+            if (result != null)
+            {
+                return result;
+            }
+
             _rentalDal.Add(rental);
 
             return new SuccessResult();
@@ -91,6 +99,19 @@ namespace RentalCar.Business.Concrete
             var result = _rentalDal.GetAllDetailsOfRentals();
 
             return new SuccessDataResult<List<RentalDetailsDto>>(result);
+        }
+
+        private IResult CheckIfExistRentalDate(DateTime rentDate, DateTime returnDate)
+        {
+            var result = _rentalDal.Get(r => r.RentDate == rentDate && r.ReturnDate == returnDate);
+
+            if (result != null)
+            {
+                return new ErrorResult();
+            }
+
+            return new SuccessResult();
+
         }
     }
 }

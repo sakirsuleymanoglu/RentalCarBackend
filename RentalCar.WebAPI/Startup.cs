@@ -18,6 +18,8 @@ using RentalCar.Core.Utilities.Security.Encryption;
 using RentalCar.Core.Utilities.IoC;
 using RentalCar.Core.Extensions;
 using RentalCar.Core.DependencyResolvers;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+
 
 namespace RentalCar.WebAPI
 {
@@ -33,7 +35,7 @@ namespace RentalCar.WebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
 
             services.AddCors();
 
