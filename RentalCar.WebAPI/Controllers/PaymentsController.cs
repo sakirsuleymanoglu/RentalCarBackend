@@ -32,7 +32,6 @@ namespace RentalCar.WebAPI.Controllers
             return Ok(result);
         }
 
-
         [HttpGet("getbycustomerid")]
         public IActionResult GetByCustomerId(int customerId)
         {

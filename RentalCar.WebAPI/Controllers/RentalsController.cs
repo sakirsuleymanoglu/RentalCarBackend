@@ -89,7 +89,7 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add([FromBody] Rental rental, decimal price)
+        public IActionResult Add([FromBody]Rental rental, [FromQuery]decimal price)
         {
             var creditCard = _paymentService.GetByCreditCardCustomerId(rental.CustomerId).Data;
 
@@ -104,10 +104,10 @@ namespace RentalCar.WebAPI.Controllers
 
             if (addRental.Success)
             {
-                return Ok(result);
+                return Ok(addRental);
             }
 
-            return BadRequest(result);
+            return BadRequest(addRental);
         }
 
         [HttpDelete("delete")]
