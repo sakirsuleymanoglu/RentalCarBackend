@@ -16,7 +16,7 @@ namespace RentalCar.WebAPI.Controllers
         private readonly IRentalService _rentalService;
         private readonly IPaymentService _paymentService;
 
-        public RentalsController(IRentalService rentalService, IPaymentService paymentService, ICarService _carService)
+        public RentalsController(IRentalService rentalService, IPaymentService paymentService)
         {
             _rentalService = rentalService;
             _paymentService = paymentService;
@@ -89,9 +89,11 @@ namespace RentalCar.WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Rental rental, CreditCard creditCard, decimal totalPrice)
+        public IActionResult Add([FromBody] Rental rental, decimal price)
         {
-            var result = _paymentService.Pay(totalPrice, creditCard);
+            var creditCard = _paymentService.GetByCreditCardCustomerId(rental.CustomerId).Data;
+
+            var result = _paymentService.Pay(price, creditCard);
 
             if (!result.Success)
             {

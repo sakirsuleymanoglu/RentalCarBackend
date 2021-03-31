@@ -18,11 +18,23 @@ namespace RentalCar.Business.Concrete
             _creditCardDal = creditCardDal;
         }
 
+        public IDataResult<CreditCard> GetByCreditCardCustomerId(int customerId)
+        {
+            var result = _creditCardDal.Get(c => c.CustomerId == customerId);
+
+            if (result != null)
+            {
+                return new SuccessDataResult<CreditCard>(result);
+            }
+
+            return new ErrorDataResult<CreditCard>(result);
+        }
+
         public IDataResult<CreditCard> GetByCreditCardNumber(string creditCardNumber)
         {
             var result = _creditCardDal.Get(c => c.CardNumber == creditCardNumber);
 
-            if (result!=null)
+            if (result != null)
             {
                 return new SuccessDataResult<CreditCard>(result);
             }
@@ -35,7 +47,7 @@ namespace RentalCar.Business.Concrete
         {
             var result = BusinessRules.Run(CheckIfEXistCreditCard(creditCard.Id));
 
-            if (result!=null)
+            if (result != null)
             {
                 return result;
             }
@@ -56,7 +68,7 @@ namespace RentalCar.Business.Concrete
         {
             var result = _creditCardDal.Get(c => c.Id == creditCardId);
 
-            if (result!=null)
+            if (result != null)
             {
                 return new ErrorResult();
             }
