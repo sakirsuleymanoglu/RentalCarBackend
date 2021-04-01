@@ -62,7 +62,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        [CacheRemoveAspect("IBrandService.Get")]
+       // [CacheRemoveAspect("IBrandService.Get")]
         //[SecuredOperation("admin, moderator")]
         public IResult Delete(Brand brand)
         {

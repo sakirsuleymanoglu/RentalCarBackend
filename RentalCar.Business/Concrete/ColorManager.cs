@@ -89,10 +89,10 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult();
+                return new SuccessResult();
             }
 
-            return new SuccessResult();
+            return new ErrorResult();
         }
 
         private IResult CheckIfExistOfColorName(string colorName)

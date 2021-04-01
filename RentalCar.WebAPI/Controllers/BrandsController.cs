@@ -59,7 +59,7 @@ namespace RentalCar.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpDelete("delete")]
+        [HttpPost("delete")]
         public IActionResult Delete(Brand brand)
         {
             var result = _brandService.Delete(brand);
@@ -72,7 +72,7 @@ namespace RentalCar.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPut("update")]
+        [HttpPost("update")]
         public IActionResult Update(Brand brand)
         {
             var result = _brandService.Update(brand);
