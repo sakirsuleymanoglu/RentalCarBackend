@@ -1,5 +1,6 @@
 ﻿using RentalCar.Business.Abstract;
 using RentalCar.Business.Utilities.Constants;
+using RentalCar.Core.Business;
 using RentalCar.Core.Entities.Concrete;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.Core.Utilities.Security.Hashing;
@@ -34,7 +35,7 @@ namespace RentalCar.Business.Concrete
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
-        {
+        { 
             var user = _userService.GetByEMail(userForLoginDto.Email).Data;
 
             if (user == null)
@@ -47,11 +48,18 @@ namespace RentalCar.Business.Concrete
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
 
-            return new SuccessDataResult<User>(user);
+            return new SuccessDataResult<User>(user, Messages.LoginSuccessful);
         }
 
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
         {
+            var userAlreadyExistsCheck = BusinessRules.Run(CheckIfUserAlreadyExists(userForRegisterDto.Email));
+
+            if (userAlreadyExistsCheck != null)
+            {
+                return new ErrorDataResult<User>(userAlreadyExistsCheck.Message);
+            }
+
             byte[] passwordHash, passwordSalt;
 
             HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
@@ -80,12 +88,13 @@ namespace RentalCar.Business.Concrete
         {
             var result = _userService.GetByEMail(email).Data;
 
-            if (result == null)
+            if (result != null)
             {
-                return new ErrorResult(Messages.UserNotFound);
+                return new ErrorResult(Messages.UserAlreadyExists);
             }
 
-            return new SuccessResult(Messages.UserAlreadyExists);
+            return new SuccessResult();
         }
+
     }
 }

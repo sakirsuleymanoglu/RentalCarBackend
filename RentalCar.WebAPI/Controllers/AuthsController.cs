@@ -45,18 +45,11 @@ namespace RentalCar.WebAPI.Controllers
         [HttpPost("register")]
         public IActionResult Register(UserForRegisterDto userForRegisterDto)
         {
-            var userExists = _authService.CheckIfUserAlreadyExists(userForRegisterDto.Email);
-
-            if (userExists.Success)
-            {
-                return BadRequest();
-            }
-
             var register = _authService.Register(userForRegisterDto);
 
             if (!register.Success)
             {
-                return BadRequest();
+                return BadRequest(register);
             }
 
             var registeredUser = register.Data;

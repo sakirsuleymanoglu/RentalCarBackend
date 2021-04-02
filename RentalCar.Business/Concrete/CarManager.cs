@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.EntityFrameworkCore.Query;
 using RentalCar.Business.Abstract;
 using RentalCar.Business.Utilities.Constants;
 using RentalCar.Core.Business;
@@ -85,16 +84,55 @@ namespace RentalCar.Business.Concrete
 
         public IDataResult<List<Car>> GetAllByModelYear(string modelYear)
         {
-            var result = _carDal.GetAll(c => c.ModelYear == modelYear);
+            var result = BusinessRules.Run(CheckIfExistModelYear(modelYear));
 
-            return new SuccessDataResult<List<Car>>(result, Messages.CarsListed);
+            if (result != null)
+            {
+                return new ErrorDataResult<List<Car>>(result.Message);
+            }
+
+            var cars = _carDal.GetAll(c => c.ModelYear == modelYear);
+
+            return new SuccessDataResult<List<Car>>(cars, Messages.CarsListed);
         }
+
+        private IResult CheckIfExistModelYear(string modelYear)
+        {
+            var result = _carDal.Get(c => c.ModelYear == modelYear);
+
+            if (result == null)
+            {
+                return new ErrorResult(Messages.ModelYearNotFound);
+            }
+
+            return new SuccessResult(Messages.ThereIsAModelYear);
+        }
+
 
         public IDataResult<List<Car>> GetAllByModel(string model)
         {
-            var result = _carDal.GetAll(c => c.Model == model);
+            var result = BusinessRules.Run(CheckIfExistModel(model));
 
-            return new SuccessDataResult<List<Car>>(result, Messages.CarsListed);
+            if (result != null)
+            {
+                return new ErrorDataResult<List<Car>>(result.Message);
+            }
+
+            var cars = _carDal.GetAll(c => c.Model == model);
+
+            return new SuccessDataResult<List<Car>>(cars, Messages.CarsListed);
+        }
+
+        private IResult CheckIfExistModel(string model)
+        {
+            var result = _carDal.Get(c => c.Model == model);
+
+            if (result == null)
+            {
+                return new ErrorResult(Messages.ModelNotFound);
+            }
+
+            return new SuccessResult(Messages.ThereIsAModel);
         }
 
         public IDataResult<Car> GetById(int id)
@@ -160,16 +198,30 @@ namespace RentalCar.Business.Concrete
 
         public IDataResult<List<CarDetailsDto>> GetAllDetailsByBrandId(int brandId)
         {
-            var result = _carDal.GetAllDetailsByBrandId(brandId);
+            var result = BusinessRules.Run(CheckIfExistsBrand(brandId));
 
-            return new SuccessDataResult<List<CarDetailsDto>>(result, Messages.CarsListed);
+            if (result!=null)
+            {
+                return new ErrorDataResult<List<CarDetailsDto>>(result.Message);
+            }
+
+            var cars = _carDal.GetAllDetailsByBrandId(brandId);
+
+            return new SuccessDataResult<List<CarDetailsDto>>(cars, Messages.CarsListed);
         }
 
         public IDataResult<List<CarDetailsDto>> GetAllDetailsByColorId(int colorId)
         {
-            var result = _carDal.GetAllDetailsByColorId(colorId);
+            var result = BusinessRules.Run(CheckIfExistsColor(colorId));
 
-            return new SuccessDataResult<List<CarDetailsDto>>(result, Messages.CarsListed);
+            if (result != null)
+            {
+                return new ErrorDataResult<List<CarDetailsDto>>(result.Message);
+            }
+
+            var cars = _carDal.GetAllDetailsByColorId(colorId);
+
+            return new SuccessDataResult<List<CarDetailsDto>>(cars, Messages.CarsListed);
         }
 
         public IDataResult<CarDetailsDto> GetDetailsByCarId(int carId)

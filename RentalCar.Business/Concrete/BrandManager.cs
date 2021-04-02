@@ -23,9 +23,6 @@ namespace RentalCar.Business.Concrete
             _brandDal = brandDal;
         }
 
-        [CacheAspect]
-        // [SecuredOperation("admin, moderator, user")]
-        [ValidationAspect(typeof(BrandValidator))]
         public IDataResult<List<Brand>> GetAll()
         {
             var result = _brandDal.GetAll();
@@ -33,7 +30,6 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<List<Brand>>(result, Messages.BrandsListed);
         }
 
-        [CacheAspect]
         public IDataResult<Brand> GetById(int id)
         {
             var result = _brandDal.Get(b => b.Id == id);
@@ -46,12 +42,9 @@ namespace RentalCar.Business.Concrete
             return new SuccessDataResult<Brand>(result, Messages.ThereIsABrand);
         }
 
-        [CacheRemoveAspect("IBrandService.Get")]
-        // [SecuredOperation("admin, moderator")]
-        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
-            var result = BusinessRules.Run(CheckIfExistOfBrandName(brand.Name));
+            var result = BusinessRules.Run(CheckIfAlreadyExistOfBrandName(brand.Name));
 
             if (result != null)
             {
@@ -63,8 +56,6 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult(Messages.BrandInsertionSuccess);
         }
 
-       // [CacheRemoveAspect("IBrandService.Get")]
-        //[SecuredOperation("admin, moderator")]
         public IResult Delete(Brand brand)
         {
             var result = BusinessRules.Run(CheckIfExistOfBrand(brand.Id));
@@ -79,9 +70,6 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult(Messages.BrandDeletedSuccess);
         }
 
-        [CacheRemoveAspect("IBrandService.Get")]
-        //[SecuredOperation("admin, moderator")]
-        [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
             var result = BusinessRules.Run(CheckIfExistOfBrand(brand.Id));
@@ -105,19 +93,19 @@ namespace RentalCar.Business.Concrete
                 return new ErrorResult(Messages.BrandNotFound);
             }
 
-            return new SuccessResult(Messages.ThereIsABrand);
+            return new SuccessResult();
         }
 
-        private IResult CheckIfExistOfBrandName(string brandName)
+        private IResult CheckIfAlreadyExistOfBrandName(string brandName)
         {
             var result = _brandDal.Get(b => b.Name == brandName);
 
-            if (result == null)
+            if (result != null)
             {
-                return new ErrorResult(Messages.BrandNotFound);
+                return new ErrorResult(Messages.ThereIsABrand);
             }
 
-            return new SuccessResult(Messages.ThereIsABrand);
+            return new SuccessResult();
         }
     }
 }

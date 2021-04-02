@@ -37,5 +37,10 @@ namespace RentalCar.Business.Utilities.Constants
         public static string ThereIsAColor = "Renk bulundu";
 
         public static string CarUpdatedSuccess = "Resim güncellendi";
+        internal static string ThereIsAModelYear;
+        internal static string ModelYearNotFound;
+        internal static string ModelNotFound;
+        internal static string ThereIsAModel;
+        internal static string LoginSuccessful;
     }
 }
