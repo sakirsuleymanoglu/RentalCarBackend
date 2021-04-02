@@ -54,8 +54,8 @@ namespace RentalCar.Business.Concrete
 
         public IResult Delete(int carId, int imagePathId)
         {
-            var result = BusinessRules.Run(CheckIfExistCar(carId),
-                CheckIfExistImageForCar(carId, imagePathId));
+            var result = BusinessRules.Run(CheckIfExistsCar(carId),
+                CheckIfExistsImageForCar(carId, imagePathId));
 
             if (result != null)
             {
@@ -71,7 +71,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult(Messages.ImageDeletedSuccess);
         }
 
-        private IResult CheckIfExistCar(int carId)
+        private IResult CheckIfExistsCar(int carId)
         {
             var result = _carService.GetById(carId);
 
@@ -83,9 +83,9 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        private IResult CheckIfExistImageForCar(int carId, int imagePathId)
+        private IResult CheckIfExistsImageForCar(int carId, int imagePathId)
         {
-            var result = BusinessRules.Run(CheckIfExistCar(carId));
+            var result = BusinessRules.Run(CheckIfExistsCar(carId));
 
             if (result != null)
             {
@@ -104,7 +104,7 @@ namespace RentalCar.Business.Concrete
 
         public IDataResult<CarImage> GetImageByCarId(int carId, int imagePath)
         {
-            var result = BusinessRules.Run(CheckIfExistImageForCar(carId, imagePath));
+            var result = BusinessRules.Run(CheckIfExistsImageForCar(carId, imagePath));
 
             if (result != null)
             {
@@ -116,8 +116,8 @@ namespace RentalCar.Business.Concrete
 
         public IResult Update(int carId, int imagePathId, string newImagePath)
         {
-            var result = BusinessRules.Run(CheckIfExistCar(carId),
-               CheckIfExistImageForCar(carId, imagePathId));
+            var result = BusinessRules.Run(CheckIfExistsCar(carId),
+               CheckIfExistsImageForCar(carId, imagePathId));
 
             if (result != null)
             {
@@ -141,7 +141,7 @@ namespace RentalCar.Business.Concrete
 
         public IDataResult<List<CarImage>> GetAllImagesByCarId(int carId)
         {
-            var result = BusinessRules.Run(CheckIfExistCar(carId));
+            var result = BusinessRules.Run(CheckIfExistsCar(carId));
 
             if (result != null)
             {

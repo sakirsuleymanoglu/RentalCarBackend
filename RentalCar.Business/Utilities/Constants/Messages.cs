@@ -47,5 +47,9 @@ namespace RentalCar.Business.Utilities.Constants
         internal static string ColorNameAlreadyExists;
         internal static string ColorDeletedSuccess;
         internal static string ColorUpdatedSuccess;
+        internal static string CustomersListed;
+        internal static string CustomerNotFound;
+        internal static string ThereIsACustomer;
+        internal static string CustomerInsertionSuccess;
     }
 }

@@ -44,7 +44,7 @@ namespace RentalCar.Business.Concrete
 
         public IResult Add(Brand brand)
         {
-            var result = BusinessRules.Run(CheckIfAlreadyExistOfBrandName(brand.Name));
+            var result = BusinessRules.Run(CheckIfAlreadyExistsOfBrandName(brand.Name));
 
             if (result != null)
             {
@@ -58,7 +58,7 @@ namespace RentalCar.Business.Concrete
 
         public IResult Delete(Brand brand)
         {
-            var result = BusinessRules.Run(CheckIfExistOfBrand(brand.Id));
+            var result = BusinessRules.Run(CheckIfExistsOfBrand(brand.Id));
 
             if (result != null)
             {
@@ -72,7 +72,7 @@ namespace RentalCar.Business.Concrete
 
         public IResult Update(Brand brand)
         {
-            var result = BusinessRules.Run(CheckIfExistOfBrand(brand.Id));
+            var result = BusinessRules.Run(CheckIfExistsOfBrand(brand.Id));
 
             if (result != null)
             {
@@ -84,7 +84,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult(Messages.BrandUpdatedSuccess);
         }
 
-        private IResult CheckIfExistOfBrand(int brandId)
+        private IResult CheckIfExistsOfBrand(int brandId)
         {
             var result = _brandDal.Get(b => b.Id == brandId);
 
@@ -96,7 +96,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-        private IResult CheckIfAlreadyExistOfBrandName(string brandName)
+        private IResult CheckIfAlreadyExistsOfBrandName(string brandName)
         {
             var result = _brandDal.Get(b => b.Name == brandName);
 

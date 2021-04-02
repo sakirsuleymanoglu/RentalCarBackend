@@ -151,7 +151,7 @@ namespace RentalCar.Business.Concrete
 
         public IResult Delete(Car car)
         {
-            var result = BusinessRules.Run(CheckExistOfCar(car.Id));
+            var result = BusinessRules.Run(CheckExistsOfCar(car.Id));
 
             if (result != null)
             {
@@ -165,7 +165,7 @@ namespace RentalCar.Business.Concrete
 
         public IResult Update(Car car)
         {
-            var result = BusinessRules.Run(CheckExistOfCar(car.Id));
+            var result = BusinessRules.Run(CheckExistsOfCar(car.Id));
 
             if (result != null)
             {
@@ -177,7 +177,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult(Messages.CarUpdatedSuccess);
         }
 
-        private IResult CheckExistOfCar(int carId)
+        private IResult CheckExistsOfCar(int carId)
         {
             var result = _carDal.Get(c => c.Id == carId);
 
@@ -226,7 +226,7 @@ namespace RentalCar.Business.Concrete
 
         public IDataResult<CarDetailsDto> GetDetailsByCarId(int carId)
         {
-            var result = BusinessRules.Run(CheckExistOfCar(carId));
+            var result = BusinessRules.Run(CheckExistsOfCar(carId));
 
             if (result != null)
             {

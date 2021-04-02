@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using RentalCar.Business.Abstract;
+using RentalCar.Business.Utilities.Constants;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
@@ -21,7 +22,7 @@ namespace RentalCar.Business.Concrete
         {
             var result = _customerDal.GetAll();
 
-            return new SuccessDataResult<List<Customer>>(result);
+            return new SuccessDataResult<List<Customer>>(result, Messages.CustomersListed);
         }
 
         public IDataResult<Customer> GetById(int id)
@@ -30,17 +31,17 @@ namespace RentalCar.Business.Concrete
 
             if (result == null)
             {
-                return new ErrorDataResult<Customer>();
+                return new ErrorDataResult<Customer>(Messages.CustomerNotFound);
             }
 
-            return new SuccessDataResult<Customer>(result);
+            return new SuccessDataResult<Customer>(result, Messages.ThereIsACustomer);
         }
 
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.CustomerInsertionSuccess);
         }
 
         public IResult Delete(Customer customer)
@@ -70,5 +71,7 @@ namespace RentalCar.Business.Concrete
 
             return new SuccessResult();
         }
+
+        private IResult CheckIfExists
     }
 }

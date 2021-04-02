@@ -56,7 +56,7 @@ namespace RentalCar.Business.Concrete
 
         public IResult Delete(Color color)
         {
-            var result = BusinessRules.Run(CheckIfExistOfColor(color.Id));
+            var result = BusinessRules.Run(CheckIfExistsOfColor(color.Id));
 
             if (result != null)
             {
@@ -70,7 +70,7 @@ namespace RentalCar.Business.Concrete
 
         public IResult Update(Color color)
         {
-            var result = BusinessRules.Run(CheckIfExistOfColor(color.Id));
+            var result = BusinessRules.Run(CheckIfExistsOfColor(color.Id));
 
             if (result != null)
             {
@@ -82,7 +82,7 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult(Messages.ColorUpdatedSuccess);
         }
 
-        private IResult CheckIfExistOfColor(int colorId)
+        private IResult CheckIfExistsOfColor(int colorId)
         {
             var result = _colorDal.Get(c => c.Id == colorId);
 
