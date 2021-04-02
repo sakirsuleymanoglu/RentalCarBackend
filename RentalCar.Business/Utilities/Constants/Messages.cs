@@ -60,5 +60,14 @@ namespace RentalCar.Business.Utilities.Constants
         public static string RentalDeletedSuccess = "Kiralama silindi";
         public static string RentalUpdatedSuccess = "Kiralama güncellendi";
         public static string RentalDateAlreadyExists = "Araba aynı tarih aralığında zaten kiralanmış";
+        internal static string UserInsertionSuccess;
+        internal static string UserDeletedSuccess;
+        internal static string UsersListed;
+        internal static string ThereIsAEmail;
+        internal static string EmailNotFound;
+        internal static string ThereIsAUser;
+        internal static string UserUpdatedSuccess;
+        internal static string UserClaimsListed;
+        internal static string UserClaimsNotFound;
     }
 }
