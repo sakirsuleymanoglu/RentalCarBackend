@@ -109,7 +109,6 @@ namespace RentalCar.Business.Concrete
             return new SuccessResult();
         }
 
-
         public IDataResult<List<Car>> GetAllByModel(string model)
         {
             var result = BusinessRules.Run(CheckIfExistModel(model));

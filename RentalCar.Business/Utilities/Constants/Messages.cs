@@ -42,5 +42,10 @@ namespace RentalCar.Business.Utilities.Constants
         public static string ThereIsAModel = "Model bulundu";
         public static string LoginSuccessful = "Giriş başarılı";
         public static string BrandNameAlreadyExists = "Marka ismi zaten var";
+        internal static string ColorsListed;
+        internal static string ColorInsertionSuccess;
+        internal static string ColorNameAlreadyExists;
+        internal static string ColorDeletedSuccess;
+        internal static string ColorUpdatedSuccess;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using RentalCar.Business.Abstract;
+using RentalCar.Business.Utilities.Constants;
 using RentalCar.Business.ValidationRules.FluentValidation;
 using RentalCar.Core.Aspects.Autofac.Validation;
 using RentalCar.Core.Business;
@@ -24,7 +25,7 @@ namespace RentalCar.Business.Concrete
         {
             var result = _colorDal.GetAll();
 
-            return new SuccessDataResult<List<Color>>(result);
+            return new SuccessDataResult<List<Color>>(result, Messages.ColorsListed);
         }
 
         public IDataResult<Color> GetById(int id)
@@ -33,16 +34,15 @@ namespace RentalCar.Business.Concrete
 
             if (result == null)
             {
-                return new ErrorDataResult<Color>();
+                return new ErrorDataResult<Color>(Messages.ColorNotFound);
             }
 
-            return new SuccessDataResult<Color>(result);
+            return new SuccessDataResult<Color>(result, Messages.ThereIsAColor);
         }
 
-        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
-            var result = BusinessRules.Run(CheckIfExistOfColorName(color.Name));
+            var result = BusinessRules.Run(CheckIfAlreadyExistsOfColorName(color.Name));
 
             if (result != null)
             {
@@ -51,7 +51,7 @@ namespace RentalCar.Business.Concrete
 
             _colorDal.Add(color);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.ColorInsertionSuccess); 
         }
 
         public IResult Delete(Color color)
@@ -65,10 +65,9 @@ namespace RentalCar.Business.Concrete
 
             _colorDal.Delete(color);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.ColorDeletedSuccess);
         }
 
-        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
             var result = BusinessRules.Run(CheckIfExistOfColor(color.Id));
@@ -80,28 +79,28 @@ namespace RentalCar.Business.Concrete
 
             _colorDal.Update(color);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.ColorUpdatedSuccess);
         }
 
         private IResult CheckIfExistOfColor(int colorId)
         {
             var result = _colorDal.Get(c => c.Id == colorId);
 
-            if (result != null)
+            if (result == null)
             {
-                return new SuccessResult();
+                return new ErrorResult(Messages.ColorNotFound);
             }
 
-            return new ErrorResult();
+            return new SuccessResult();
         }
 
-        private IResult CheckIfExistOfColorName(string colorName)
+        private IResult CheckIfAlreadyExistsOfColorName(string colorName)
         {
             var result = _colorDal.Get(c => c.Name == colorName);
 
             if (result != null)
             {
-                return new ErrorResult();
+                return new ErrorResult(Messages.ColorNameAlreadyExists);
             }
 
             return new SuccessResult();
