@@ -22,13 +22,20 @@ namespace RentalCar.Business.Utilities.Constants
         public static string BrandUpdatedSuccess = "Marka güncellendi";
         public static string ImageInsertionSuccess = "Resim eklendi";
         public static string NumberOfPicturesError = "En fazla 5 tane resim eklenebilir";
-        internal static string ImageDeletedSuccess;
-        internal static string CarNotFound;
-        internal static string PictureCanBeAttached;
-        internal static string ThereIsACar;
-        internal static string ImageNotFound;
-        internal static string ThereIsAImage;
-        internal static string ImageUpdatedSuccess;
-        internal static string PicturesListed;
+        public static string ImageDeletedSuccess = "Resim silindi";
+        public static string CarNotFound = "Araba bulunamadı";
+        public static string PictureCanBeAttached = "Resim eklenebilir";
+        public static string ThereIsACar = "Araba bulundu";
+        public static string ImageNotFound = "Resim bulunamadı";
+        public static string ThereIsAImage = "Resim bulundu";
+        public static string ImageUpdatedSuccess = "Resim güncellendi";
+        public static string PicturesListed = "Resimler listeledi";
+        public static string CarsListed = "Arabalar listelendi";
+        public static string CarInsertionSuccess = "Araba eklendi";
+        public static string CarDeletedSuccess = "Araba silindi";
+        public static string ColorNotFound = "Renk bulunamadı";
+        public static string ThereIsAColor = "Renk bulundu";
+
+        public static string CarUpdatedSuccess = "Resim güncellendi";
     }
 }
