@@ -53,5 +53,12 @@ namespace RentalCar.Business.Utilities.Constants
         public static string CustomerInsertionSuccess = "Müşteri eklendi";
         public static string CustomerDeletedSuccess = "Müşteri silindi";
         public static string CustomerUpdatedSuccess = "Müşteri güncellendi";
+        public static string RentalsListed = "Kiralamalar listelendi";
+        public static string RentalNotFound = "Kiralama bulunamadı";
+        public static string ThereIsARental = "Kiralama bulundu";
+        public static string RentalInsertionSuccess = "Araba kiralandı";
+        public static string RentalDeletedSuccess = "Kiralama silindi";
+        public static string RentalUpdatedSuccess = "Kiralama güncellendi";
+        public static string RentalDateAlreadyExists = "Araba aynı tarih aralığında zaten kiralanmış";
     }
 }
