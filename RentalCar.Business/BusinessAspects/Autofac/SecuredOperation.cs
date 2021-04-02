@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using RentalCar.Business.Utilities.Constants;
 
 namespace RentalCar.Business.BusinessAspects.Autofac
 {
@@ -35,7 +36,7 @@ namespace RentalCar.Business.BusinessAspects.Autofac
                 }
             }
 
-            throw new Exception("Yetkiniz yok");
+            throw new Exception(Messages.UserNotAuthorized);
         }
     }
 }

@@ -13,6 +13,11 @@ namespace RentalCar.Core.Utilities.Results
 
         }
 
+        public ErrorDataResult(string message) : base(false, message)
+        {
+
+        }
+
         public ErrorDataResult(T data) : base(false)
         {
             Data = data;

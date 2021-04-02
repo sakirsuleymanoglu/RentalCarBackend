@@ -1,4 +1,5 @@
 ﻿using RentalCar.Business.Abstract;
+using RentalCar.Business.Utilities.Constants;
 using RentalCar.Core.Entities.Concrete;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.Core.Utilities.Security.Hashing;
@@ -29,7 +30,7 @@ namespace RentalCar.Business.Concrete
 
             var accessToken = _tokenHelper.CreateToken(user, userClaims);
 
-            return new SuccessDataResult<AccessToken>(accessToken);
+            return new SuccessDataResult<AccessToken>(accessToken, Messages.CreateAccessToken);
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
@@ -38,12 +39,12 @@ namespace RentalCar.Business.Concrete
 
             if (user == null)
             {
-                return new ErrorDataResult<User>();
+                return new ErrorDataResult<User>(Messages.UserNotFound);
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return new ErrorDataResult<User>();
+                return new ErrorDataResult<User>(Messages.PasswordError);
             }
 
             return new SuccessDataResult<User>(user);
@@ -69,10 +70,10 @@ namespace RentalCar.Business.Concrete
 
             if (!result.Success)
             {
-                return new ErrorDataResult<User>();
+                return new ErrorDataResult<User>(Messages.UserInsertionError);
             }
 
-            return new SuccessDataResult<User>(user);
+            return new SuccessDataResult<User>(user, Messages.RegistirationSuccessful);
         }
 
         public IResult CheckIfUserAlreadyExists(string email)
@@ -81,10 +82,10 @@ namespace RentalCar.Business.Concrete
 
             if (result == null)
             {
-                return new ErrorResult();
+                return new ErrorResult(Messages.UserNotFound);
             }
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.UserAlreadyExists);
         }
     }
 }

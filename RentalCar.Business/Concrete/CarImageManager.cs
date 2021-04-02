@@ -1,4 +1,5 @@
 ﻿using RentalCar.Business.Abstract;
+using RentalCar.Business.Utilities.Constants;
 using RentalCar.Core.Business;
 using RentalCar.Core.Utilities.File;
 using RentalCar.Core.Utilities.Results;
@@ -37,7 +38,7 @@ namespace RentalCar.Business.Concrete
                 Date = DateTime.Now
             });
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.ImageInsertionSuccess);
         }
 
         private IResult CheckIfImageCountForCarThanFive(int carId)
@@ -46,9 +47,9 @@ namespace RentalCar.Business.Concrete
 
             if (result.Count >= 5)
             {
-                return new ErrorResult();
+                return new ErrorResult(Messages.NumberOfPicturesError);
             }
-            return new SuccessResult();
+            return new SuccessResult(Messages.PictureCanBeAttached);
         }
 
         public IResult Delete(int carId, int imagePathId)
@@ -67,43 +68,50 @@ namespace RentalCar.Business.Concrete
 
             FileHelper.DeleteFile(carImage.ImagePath);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.ImageDeletedSuccess);
         }
 
         private IResult CheckIfExistCar(int carId)
         {
             var result = _carService.GetById(carId);
 
-            if (!result.Success)
+            if (result == null)
             {
-                return new ErrorResult();
+                return new ErrorResult(Messages.CarNotFound);
             }
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.ThereIsACar);
         }
 
         private IResult CheckIfExistImageForCar(int carId, int imagePathId)
         {
-            var result = _carImageDal.Get(c => c.CarId == carId && c.Id == imagePathId);
+            var result = BusinessRules.Run(CheckIfExistCar(carId));
 
-            if (result == null)
+            if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
-            return new SuccessResult();
+            var image = _carImageDal.Get(c => c.CarId == carId && c.Id == imagePathId);
+
+            if (image == null)
+            {
+                return new ErrorResult(Messages.ImageNotFound);
+            }
+
+            return new SuccessResult(Messages.ThereIsAImage);
         }
 
         public IDataResult<CarImage> GetImageByCarId(int carId, int imagePath)
         {
-            var result = BusinessRules.Run(CheckIfExistCar(carId), CheckIfExistImageForCar(carId, imagePath));
+            var result = BusinessRules.Run(CheckIfExistImageForCar(carId, imagePath));
 
             if (result != null)
             {
-                return new ErrorDataResult<CarImage>();
+                return new ErrorDataResult<CarImage>(result.Message);
             }
 
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarId == carId && c.Id == imagePath));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarId == carId && c.Id == imagePath), Messages.ThereIsAImage);
         }
 
         public IResult Update(int carId, int imagePathId, string newImagePath)
@@ -128,7 +136,7 @@ namespace RentalCar.Business.Concrete
 
             FileHelper.DeleteFile(oldCarImagePath);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.ImageUpdatedSuccess);
         }
 
         public IDataResult<List<CarImage>> GetAllImagesByCarId(int carId)
@@ -137,12 +145,12 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorDataResult<List<CarImage>>();
+                return new ErrorDataResult<List<CarImage>>(result.Message);
             }
 
             var images = _carImageDal.GetAll(c => c.CarId == carId);
 
-            return new SuccessDataResult<List<CarImage>>(images);
+            return new SuccessDataResult<List<CarImage>>(images, Messages.PicturesListed);
 
         }
 
