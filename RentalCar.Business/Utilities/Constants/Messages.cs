@@ -41,15 +41,17 @@ namespace RentalCar.Business.Utilities.Constants
         public static string ModelNotFound = "Model bulunamadı";
         public static string ThereIsAModel = "Model bulundu";
         public static string LoginSuccessful = "Giriş başarılı";
-        public static string BrandNameAlreadyExists = "Marka ismi zaten var";
-        internal static string ColorsListed;
-        internal static string ColorInsertionSuccess;
-        internal static string ColorNameAlreadyExists;
-        internal static string ColorDeletedSuccess;
-        internal static string ColorUpdatedSuccess;
-        internal static string CustomersListed;
-        internal static string CustomerNotFound;
-        internal static string ThereIsACustomer;
-        internal static string CustomerInsertionSuccess;
+        public static string BrandNameAlreadyExists = "Marka zaten var";
+        public static string ColorsListed = "Renkler listelendi";
+        public static string ColorInsertionSuccess = "Renk eklendi";
+        public static string ColorNameAlreadyExists = "Renk zaten var";
+        public static string ColorDeletedSuccess = "Renk silindi";
+        public static string ColorUpdatedSuccess = "Renk güncellendi";
+        public static string CustomersListed = "Müşretiler listelendi";
+        public static string CustomerNotFound = "Müşteri bulunamadı";
+        public static string ThereIsACustomer = "Müşteri bulundu";
+        public static string CustomerInsertionSuccess = "Müşteri eklendi";
+        public static string CustomerDeletedSuccess = "Müşteri silindi";
+        public static string CustomerUpdatedSuccess = "Müşteri güncellendi";
     }
 }

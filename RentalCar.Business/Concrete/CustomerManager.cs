@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using RentalCar.Business.Abstract;
 using RentalCar.Business.Utilities.Constants;
+using RentalCar.Core.Business;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
@@ -46,32 +47,42 @@ namespace RentalCar.Business.Concrete
 
         public IResult Delete(Customer customer)
         {
-            var result = _customerDal.Get(c => c.Id == customer.Id);
+            var result = BusinessRules.Run(CheckIfExistsOfCustomer(customer.Id));
 
-            if (result == null)
+            if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             _customerDal.Delete(customer);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.CustomerDeletedSuccess);
         }
 
         public IResult Update(Customer customer)
         {
-            var result = _customerDal.Get(c => c.Id == customer.Id);
+            var result = BusinessRules.Run(CheckIfExistsOfCustomer(customer.Id));
 
-            if (result == null)
+            if (result != null)
             {
-                return new ErrorResult();
+                return result;
             }
 
             _customerDal.Update(customer);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.CustomerUpdatedSuccess);
         }
 
-        private IResult CheckIfExists
+        private IResult CheckIfExistsOfCustomer(int customerId)
+        {
+            var result = _customerDal.Get(c => c.Id == customerId);
+
+            if (result == null)
+            {
+                return new ErrorResult(Messages.CustomerNotFound);
+            }
+
+            return new SuccessResult();
+        }
     }
 }
