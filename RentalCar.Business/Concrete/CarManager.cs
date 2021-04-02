@@ -17,10 +17,11 @@ namespace RentalCar.Business.Concrete
         private readonly IBrandService _brandService;
         private readonly IColorService _colorService;
 
-        public CarManager(ICarDal carDal, IBrandService brandService)
+        public CarManager(ICarDal carDal, IBrandService brandService, IColorService colorService)
         {
             _carDal = carDal;
             _brandService = brandService;
+            _colorService = colorService;
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -53,7 +54,7 @@ namespace RentalCar.Business.Concrete
                 return new ErrorResult(Messages.BrandNotFound);
             }
 
-            return new SuccessResult(Messages.ThereIsABrand);
+            return new SuccessResult();
         }
 
         public IDataResult<List<Car>> GetAllByColorId(int colorId)
@@ -79,7 +80,7 @@ namespace RentalCar.Business.Concrete
                 return new ErrorResult(Messages.ColorNotFound);
             }
 
-            return new SuccessResult(Messages.ThereIsAColor);
+            return new SuccessResult();
         }
 
         public IDataResult<List<Car>> GetAllByModelYear(string modelYear)
@@ -105,7 +106,7 @@ namespace RentalCar.Business.Concrete
                 return new ErrorResult(Messages.ModelYearNotFound);
             }
 
-            return new SuccessResult(Messages.ThereIsAModelYear);
+            return new SuccessResult();
         }
 
 
@@ -132,7 +133,7 @@ namespace RentalCar.Business.Concrete
                 return new ErrorResult(Messages.ModelNotFound);
             }
 
-            return new SuccessResult(Messages.ThereIsAModel);
+            return new SuccessResult();
         }
 
         public IDataResult<Car> GetById(int id)
@@ -186,7 +187,7 @@ namespace RentalCar.Business.Concrete
                 return new ErrorResult(Messages.CarNotFound);
             }
 
-            return new SuccessResult(Messages.ThereIsACar);
+            return new SuccessResult();
         }
 
         public IDataResult<List<CarDetailsDto>> GetAllDetails()

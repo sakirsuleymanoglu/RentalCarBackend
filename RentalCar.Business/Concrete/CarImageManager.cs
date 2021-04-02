@@ -49,7 +49,7 @@ namespace RentalCar.Business.Concrete
             {
                 return new ErrorResult(Messages.NumberOfPicturesError);
             }
-            return new SuccessResult(Messages.PictureCanBeAttached);
+            return new SuccessResult();
         }
 
         public IResult Delete(int carId, int imagePathId)
@@ -80,7 +80,7 @@ namespace RentalCar.Business.Concrete
                 return new ErrorResult(Messages.CarNotFound);
             }
 
-            return new SuccessResult(Messages.ThereIsACar);
+            return new SuccessResult();
         }
 
         private IResult CheckIfExistImageForCar(int carId, int imagePathId)
@@ -92,14 +92,14 @@ namespace RentalCar.Business.Concrete
                 return result;
             }
 
-            var image = _carImageDal.Get(c => c.CarId == carId && c.Id == imagePathId);
+            var image = _carImageDal.Get(cImage => cImage.CarId == carId && cImage.Id == imagePathId);
 
             if (image == null)
             {
                 return new ErrorResult(Messages.ImageNotFound);
             }
 
-            return new SuccessResult(Messages.ThereIsAImage);
+            return new SuccessResult();
         }
 
         public IDataResult<CarImage> GetImageByCarId(int carId, int imagePath)

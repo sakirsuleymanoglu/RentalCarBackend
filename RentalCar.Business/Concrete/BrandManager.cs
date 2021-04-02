@@ -102,7 +102,7 @@ namespace RentalCar.Business.Concrete
 
             if (result != null)
             {
-                return new ErrorResult(Messages.ThereIsABrand);
+                return new ErrorResult(Messages.BrandNameAlreadyExists);
             }
 
             return new SuccessResult();

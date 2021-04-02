@@ -35,12 +35,12 @@ namespace RentalCar.Business.Utilities.Constants
         public static string CarDeletedSuccess = "Araba silindi";
         public static string ColorNotFound = "Renk bulunamadı";
         public static string ThereIsAColor = "Renk bulundu";
-
         public static string CarUpdatedSuccess = "Resim güncellendi";
-        internal static string ThereIsAModelYear;
-        internal static string ModelYearNotFound;
-        internal static string ModelNotFound;
-        internal static string ThereIsAModel;
-        internal static string LoginSuccessful;
+        public static string ThereIsAModelYear = "Model yılı bulundu";
+        public static string ModelYearNotFound = "Model yılı bulunamadı";
+        public static string ModelNotFound = "Model bulunamadı";
+        public static string ThereIsAModel = "Model bulundu";
+        public static string LoginSuccessful = "Giriş başarılı";
+        public static string BrandNameAlreadyExists = "Marka ismi zaten var";
     }
 }
