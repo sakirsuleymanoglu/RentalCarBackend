@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using RentalCar.Business.Abstract;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.Core.Entities.Concrete;
 using RentalCar.Business.Utilities.Constants;
 using RentalCar.Core.Business;
+using RentalCar.Core.Utilities.Security.Hashing;
+using RentalCar.Entities.DTOs;
 
 namespace RentalCar.Business.Concrete
 {
@@ -24,6 +27,27 @@ namespace RentalCar.Business.Concrete
             _userDal.Add(user);
 
             return new SuccessResult(Messages.UserInsertionSuccess);
+        }
+
+        public IResult CheckIfIsAdmin(int userId)
+        {
+            var result = BusinessRules.Run(CheckIfExistsUser(userId));
+
+            if (result != null)
+            {
+                return result;
+            }
+
+            var claims = _userDal.GetClaims(userId);
+
+            var claim = claims.SingleOrDefault(c => c.Name == "admin");
+
+            if (claim == null)
+            {
+                return new ErrorResult();
+            }
+
+            return new SuccessResult();
         }
 
         public IResult Delete(User user)
@@ -83,14 +107,41 @@ namespace RentalCar.Business.Concrete
             return new ErrorDataResult<List<OperationClaim>>(Messages.UserClaimsNotFound);
         }
 
-        public IResult Update(User user)
+        public IDataResult<List<OperationClaim>> GetClaimsByUserId(int userId)
         {
-            var result = BusinessRules.Run(CheckIfExistsUser(user.Id));
+            var result = BusinessRules.Run(CheckIfExistsUser(userId));
+
+            if (result != null)
+            {
+                return new ErrorDataResult<List<OperationClaim>>(result.Message);
+            }
+
+            var claims = _userDal.GetClaims(userId);
+
+            return new SuccessDataResult<List<OperationClaim>>(claims);
+        }
+
+        public IResult Update(UserForRegisterDto userForRegisterDto, int userId)
+        {
+            byte[] passwordHash, passwordSalt;
+
+            var result = BusinessRules.Run(CheckIfExistsUser(userId));
 
             if (result != null)
             {
                 return result;
             }
+
+            HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
+
+            var user = _userDal.Get(u => u.Id == userId);
+
+            user.Email = userForRegisterDto.Email;
+            user.FirstName = userForRegisterDto.FirstName;
+            user.LastName = userForRegisterDto.LastName;
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+            user.Status = true;
 
             _userDal.Update(user);
 

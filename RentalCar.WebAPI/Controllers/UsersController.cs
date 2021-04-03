@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RentalCar.Business.Abstract;
 using RentalCar.Entities.Concrete;
 using RentalCar.Core.Entities.Concrete;
+using RentalCar.Entities.DTOs;
 
 namespace RentalCar.WebAPI.Controllers
 {
@@ -47,7 +48,28 @@ namespace RentalCar.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpGet("isadmin")]
+        public IActionResult CheckIfIsAdmin(int userId)
+        {
+            var result = _userService.CheckIfIsAdmin(userId);
+
+            return Ok(result);
+        }
+
+        [HttpGet("getbymail")]
+        public IActionResult GetByEMail(string email)
+         {
+            var result = _userService.GetByEMail(email);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpPost("add")]
         public IActionResult Add(User user)
         {
             var result = _userService.Add(user);
@@ -60,7 +82,7 @@ namespace RentalCar.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpDelete]
+        [HttpPost("delete")]
         public IActionResult Delete(User user)
         {
             var result = _userService.Delete(user);
@@ -73,10 +95,23 @@ namespace RentalCar.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPut]
-        public IActionResult Update(User user)
+        [HttpPost("update")]
+        public IActionResult Update([FromBody]UserForRegisterDto userForRegisterDto, [FromQuery]int userId)
         {
-            var result = _userService.Update(user);
+            var result = _userService.Update(userForRegisterDto, userId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpGet("getclaims")]
+        public IActionResult GetClaims(int userId)
+        {
+            var result = _userService.GetClaimsByUserId(userId);
 
             if (result.Success)
             {

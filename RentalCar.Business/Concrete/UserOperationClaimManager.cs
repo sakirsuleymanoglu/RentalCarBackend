@@ -15,9 +15,10 @@ namespace RentalCar.Business.Concrete
         private readonly IUserOperationClaimDal _userOperationClaimDal;
         private readonly IUserService _userService;
 
-        public UserOperationClaimManager(IUserOperationClaimDal userOperationClaimDal)
+        public UserOperationClaimManager(IUserOperationClaimDal userOperationClaimDal, IUserService userService)
         {
             _userOperationClaimDal = userOperationClaimDal;
+            _userService = userService;
         }
 
         public IResult AddDefaultClaim(int userId)
