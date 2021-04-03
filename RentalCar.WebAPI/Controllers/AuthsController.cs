@@ -45,16 +45,7 @@ namespace RentalCar.WebAPI.Controllers
         [HttpPost("register")]
         public IActionResult Register(UserForRegisterDto userForRegisterDto)
         {
-            var register = _authService.Register(userForRegisterDto);
-
-            if (!register.Success)
-            {
-                return BadRequest(register);
-            }
-
-            var registeredUser = register.Data;
-
-            var result = _authService.CreateAccessToken(registeredUser);
+            var result = _authService.Register(userForRegisterDto);
 
             if (!result.Success)
             {

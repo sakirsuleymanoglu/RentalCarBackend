@@ -43,6 +43,9 @@ namespace RentalCar.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfCreditCardDal>().As<ICreditCardDal>().SingleInstance();
 
 
+            builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>().SingleInstance();
+            builder.RegisterType<EfUserOperationClaim>().As<IUserOperationClaimDal>().SingleInstance();
+
 
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
 

@@ -69,5 +69,6 @@ namespace RentalCar.Business.Utilities.Constants
         internal static string UserUpdatedSuccess;
         internal static string UserClaimsListed;
         internal static string UserClaimsNotFound;
+        internal static string UserOperationClaimInsertionSuccess;
     }
 }

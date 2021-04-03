@@ -16,11 +16,13 @@ namespace RentalCar.Business.Concrete
     {
         private readonly IUserService _userService;
         private readonly ITokenHelper _tokenHelper;
+        private readonly IUserOperationClaimService _userOperationClaimService;
 
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper, IUserOperationClaimService userOperationClaimService)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
+            _userOperationClaimService = userOperationClaimService;
         }
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
@@ -80,6 +82,10 @@ namespace RentalCar.Business.Concrete
             {
                 return new ErrorDataResult<User>(Messages.UserInsertionError);
             }
+
+            var getUser = _userService.GetByEMail(user.Email).Data;
+
+            _userOperationClaimService.AddDefaultClaim(getUser.Id);
 
             return new SuccessDataResult<User>(user, Messages.RegistirationSuccessful);
         }
