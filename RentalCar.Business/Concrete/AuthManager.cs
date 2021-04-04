@@ -33,7 +33,7 @@ namespace RentalCar.Business.Concrete
 
             var accessToken = _tokenHelper.CreateToken(user, userClaims);
 
-            return new SuccessDataResult<AccessToken>(accessToken, Messages.CreateAccessToken);
+            return new SuccessDataResult<AccessToken>(accessToken, Messages.LoginSuccessful);
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
@@ -50,7 +50,7 @@ namespace RentalCar.Business.Concrete
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
 
-            return new SuccessDataResult<User>(user, Messages.LoginSuccessful);
+            return new SuccessDataResult<User>(user);
         }
 
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)

@@ -26,7 +26,7 @@ namespace RentalCar.Core.Utilities.Security.Jwt
 
             _tokenOptions = _configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
-            _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
+            _accessTokenExpiration = DateTime.UtcNow.AddMinutes(_tokenOptions.AccessTokenExpiration);
         }
 
         public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
@@ -47,7 +47,6 @@ namespace RentalCar.Core.Utilities.Security.Jwt
                 Expiration = _accessTokenExpiration
             };
         }
-
         public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, User user, SigningCredentials signingCredentials, List<OperationClaim> operationClaims)
         {
             var jwt = new JwtSecurityToken(
@@ -70,7 +69,7 @@ namespace RentalCar.Core.Utilities.Security.Jwt
             claims.AddEmail(user.Email);
             claims.AddName($"{user.FirstName} {user.LastName}");
             claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
-           
+
             return claims;
         }
     }

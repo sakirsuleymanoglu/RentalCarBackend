@@ -123,6 +123,13 @@ namespace RentalCar.Business.Concrete
 
         public IResult Update(UserForRegisterDto userForRegisterDto, int userId)
         {
+            var userAlreadyExistsCheck = BusinessRules.Run(CheckIfUserAlreadyExists(userForRegisterDto.Email));
+
+            if (userAlreadyExistsCheck != null)
+            {
+                return new ErrorDataResult<User>(userAlreadyExistsCheck.Message);
+            }
+
             byte[] passwordHash, passwordSalt;
 
             var result = BusinessRules.Run(CheckIfExistsUser(userId));
@@ -147,6 +154,19 @@ namespace RentalCar.Business.Concrete
 
             return new SuccessResult(Messages.UserUpdatedSuccess);
         }
+
+        public IResult CheckIfUserAlreadyExists(string email)
+        {
+            var result = _userDal.Get(u=>u.Email == email);
+
+            if (result != null)
+            {
+                return new ErrorResult(Messages.UserAlreadyExists);
+            }
+
+            return new SuccessResult();
+        }
+
 
         private IResult CheckIfExistsUser(int userId)
         {

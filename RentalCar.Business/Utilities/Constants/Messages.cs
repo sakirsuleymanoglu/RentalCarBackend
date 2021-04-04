@@ -60,15 +60,15 @@ namespace RentalCar.Business.Utilities.Constants
         public static string RentalDeletedSuccess = "Kiralama silindi";
         public static string RentalUpdatedSuccess = "Kiralama güncellendi";
         public static string RentalDateAlreadyExists = "Araba aynı tarih aralığında zaten kiralanmış";
-        internal static string UserInsertionSuccess;
-        internal static string UserDeletedSuccess;
-        internal static string UsersListed;
-        internal static string ThereIsAEmail;
-        internal static string EmailNotFound;
-        internal static string ThereIsAUser;
-        internal static string UserUpdatedSuccess;
-        internal static string UserClaimsListed;
-        internal static string UserClaimsNotFound;
-        internal static string UserOperationClaimInsertionSuccess;
+        internal static string UserInsertionSuccess = "Kullanıcı eklendi";
+        internal static string UserDeletedSuccess = "Kullanıcı silindi";
+        internal static string UsersListed = "Kullanıcılar listeledi";
+        internal static string ThereIsAEmail = "E-posta bulund";
+        internal static string EmailNotFound = "E-posta bulunamadı";
+        internal static string ThereIsAUser = "Kullanıcı bulundu";
+        internal static string UserUpdatedSuccess = "Bilgiler güncellendi";
+        internal static string UserClaimsListed = "Kullanıcı yetkileri güncellendi";
+        internal static string UserClaimsNotFound = "Kullanıcıya ait yetkiler bulunamadı";
+        internal static string UserOperationClaimInsertionSuccess = "Yetki eklendi";
     }
 }
