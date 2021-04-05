@@ -13,6 +13,7 @@ namespace RentalCar.Business.Concrete
     public class CustomerManager : ICustomerService
     {
         private readonly ICustomerDal _customerDal;
+        private readonly IUserService _userService;
 
         public CustomerManager(ICustomerDal customerDal)
         {
@@ -82,6 +83,36 @@ namespace RentalCar.Business.Concrete
                 return new ErrorResult(Messages.CustomerNotFound);
             }
 
+            return new SuccessResult();
+        }
+
+        public IDataResult<Customer> GetByUserId(int userId)
+        {
+            var result = BusinessRules.Run(CheckIfExistsOfUser(userId));
+
+            if (result != null)
+            {
+                return new ErrorDataResult<Customer>(result.Message);
+            }
+
+            var customer = _customerDal.Get(c => c.UserId == userId);
+
+            if (customer == null)
+            {
+                return new ErrorDataResult<Customer>(Messages.CustomerNotFound);
+            }
+
+            return new SuccessDataResult<Customer>(customer, Messages.ThereIsACustomer);
+        }
+
+        private IResult CheckIfExistsOfUser(int userId)
+        {
+            var result = _userService.GetById(userId);
+
+            if (result == null)
+            {
+                return new ErrorResult(Messages.UserNotFound);
+            }
             return new SuccessResult();
         }
     }

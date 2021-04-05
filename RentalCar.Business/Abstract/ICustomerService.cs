@@ -10,6 +10,7 @@ namespace RentalCar.Business.Abstract
     {
         IDataResult<List<Customer>> GetAll();
         IDataResult<Customer> GetById(int id);
+        IDataResult<Customer> GetByUserId(int userId);
         IResult Add(Customer customer);
         IResult Delete(Customer customer);
         IResult Update(Customer customer);
