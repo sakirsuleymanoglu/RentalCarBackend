@@ -15,9 +15,10 @@ namespace RentalCar.Business.Concrete
         private readonly ICustomerDal _customerDal;
         private readonly IUserService _userService;
 
-        public CustomerManager(ICustomerDal customerDal)
+        public CustomerManager(ICustomerDal customerDal, IUserService userService)
         {
             _customerDal = customerDal;
+            _userService = userService;
         }
 
         public IDataResult<List<Customer>> GetAll()
