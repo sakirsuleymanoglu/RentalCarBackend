@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 
 namespace RentalCar.Core.Extensions
 {
@@ -19,14 +17,17 @@ namespace RentalCar.Core.Extensions
             claims.Add(new Claim(ClaimTypes.Name, name));
         }
 
-        public static void AddNameIndentifier(this ICollection<Claim> claims, string nameIndentifier)
+        public static void AddNameIdentifier(this ICollection<Claim> claims, string nameIdentifier)
         {
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, nameIndentifier));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, nameIdentifier));
         }
 
-        public static void AddRoles(this ICollection<Claim> claims, string[] roles)
+        public static void AddRoles(this ICollection<Claim> claims, List<string> roles)
         {
-            roles.ToList().ForEach(role => claims.Add(new Claim(ClaimTypes.Role, role)));
+            roles.ForEach(role =>
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            });
         }
     }
 }

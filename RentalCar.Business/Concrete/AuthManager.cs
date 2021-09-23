@@ -6,9 +6,6 @@ using RentalCar.Core.Utilities.Results;
 using RentalCar.Core.Utilities.Security.Hashing;
 using RentalCar.Core.Utilities.Security.Jwt;
 using RentalCar.Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RentalCar.Business.Concrete
 {

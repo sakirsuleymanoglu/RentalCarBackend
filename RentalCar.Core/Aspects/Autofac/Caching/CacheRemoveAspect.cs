@@ -3,22 +3,17 @@ using RentalCar.Core.CrossCuttingCorcerns.Caching;
 using RentalCar.Core.Utilities.Interceptors;
 using RentalCar.Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RentalCar.Core.Aspects.Autofac.Caching
 {
     public class CacheRemoveAspect : MethodInterception
     {
-        private readonly string _pattern;
-
-        private readonly ICacheManager _cacheManager;
+        public string _pattern;
+        public ICacheManager _cacheManager;
 
         public CacheRemoveAspect(string pattern)
         {
             _pattern = pattern;
-
             _cacheManager = ServiceTool.ServiceProvider.GetService<ICacheManager>();
         }
 

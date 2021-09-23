@@ -4,8 +4,6 @@ using RentalCar.Core.Extensions;
 using RentalCar.Core.Utilities.Interceptors;
 using RentalCar.Core.Utilities.IoC;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using RentalCar.Business.Utilities.Constants;
 

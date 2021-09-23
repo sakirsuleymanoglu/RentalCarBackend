@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using RentalCar.Business.Abstract;
@@ -10,7 +7,6 @@ using RentalCar.Core.Utilities.Interceptors;
 using RentalCar.Core.Utilities.Security.Jwt;
 using RentalCar.DataAccess.Abstract;
 using RentalCar.DataAccess.Concrete.EntityFramework;
-using RentalCar.Entities.Concrete;
 
 namespace RentalCar.Business.DependencyResolvers.Autofac
 {
@@ -39,18 +35,13 @@ namespace RentalCar.Business.DependencyResolvers.Autofac
             builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
 
-        
-
-
             builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>().SingleInstance();
             builder.RegisterType<EfUserOperationClaim>().As<IUserOperationClaimDal>().SingleInstance();
-
 
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
 
             builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
             
-
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

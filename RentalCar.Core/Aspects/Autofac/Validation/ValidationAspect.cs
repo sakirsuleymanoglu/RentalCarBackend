@@ -3,9 +3,7 @@ using FluentValidation;
 using RentalCar.Core.CrossCuttingCorcerns.Validation.FluentValidation;
 using RentalCar.Core.Utilities.Interceptors;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace RentalCar.Core.Aspects.Autofac.Validation
 {
@@ -29,7 +27,7 @@ namespace RentalCar.Core.Aspects.Autofac.Validation
 
             var entityType = _validatorType.BaseType.GetGenericArguments()[0];
 
-            var entities = invocation.Arguments.Where(t => t.GetType() == entityType);
+            var entities = invocation.Arguments.Where(e => e.GetType() == entityType);
 
             foreach (var entity in entities)
             {

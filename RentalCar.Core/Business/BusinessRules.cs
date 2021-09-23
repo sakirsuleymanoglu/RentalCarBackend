@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RentalCar.Core.Utilities.Results;
+﻿using RentalCar.Core.Utilities.Results;
 
 namespace RentalCar.Core.Business
 {
     public class BusinessRules
     {
-        public static IResult Run(params IResult[] logics)
+        public static IResult Run(params IResult[] results)
         {
-            foreach (var logic in logics)
+            foreach (var result in results)
             {
-                if (!logic.Success)
+                if (!result.Success)
                 {
-                    return logic;
+                    return result;
                 }
             }
 

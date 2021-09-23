@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RentalCar.Core.Utilities.Results
+﻿namespace RentalCar.Core.Utilities.Results
 {
     public class SuccessDataResult<T> : Result, IDataResult<T>
     {

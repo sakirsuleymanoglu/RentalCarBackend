@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using RentalCar.Core.Entities.Concrete;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.Entities.DTOs;

@@ -1,8 +1,4 @@
-﻿using RentalCar.Core.Entities.Concrete;
-using RentalCar.Core.Utilities.Results;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RentalCar.Core.Utilities.Results;
 
 namespace RentalCar.Business.Abstract
 {

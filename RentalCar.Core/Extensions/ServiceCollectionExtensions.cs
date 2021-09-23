@@ -1,21 +1,18 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RentalCar.Core.Utilities.IoC;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RentalCar.Core.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDependencyResolvers(this IServiceCollection serviceCollection, params ICoreModule[] modules)
+        public static IServiceCollection AddDependencyResolvers(this IServiceCollection services, params ICoreModule[] coreModules)
         {
-            foreach (var module in modules)
+            foreach (var coreModule in coreModules)
             {
-                module.Load(serviceCollection);
+                coreModule.Load(services);
             }
 
-            return ServiceTool.Create(serviceCollection);
+            return ServiceTool.Create(services);
         }
     }
 }

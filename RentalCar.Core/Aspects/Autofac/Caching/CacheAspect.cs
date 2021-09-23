@@ -3,23 +3,18 @@ using RentalCar.Core.CrossCuttingCorcerns.Caching;
 using RentalCar.Core.Utilities.Interceptors;
 using RentalCar.Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace RentalCar.Core.Aspects.Autofac.Caching
 {
     public class CacheAspect : MethodInterception
     {
-        private readonly int _duration;
-
-        private readonly ICacheManager _cacheManager;
+        private int _duration;
+        private ICacheManager _cacheManager;
 
         public CacheAspect(int duration = 60)
         {
             _duration = duration;
-
             _cacheManager = ServiceTool.ServiceProvider.GetService<ICacheManager>();
         }
 
@@ -31,7 +26,7 @@ namespace RentalCar.Core.Aspects.Autofac.Caching
 
             var key = $"{methodName}({string.Join(",", arguments.Select(x => x?.ToString() ?? "<Null>"))})";
 
-            if (_cacheManager.IsAdd(key))
+            if (_cacheManager.isAdd(key))
             {
                 invocation.ReturnValue = _cacheManager.Get(key);
 

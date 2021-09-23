@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using RentalCar.Business.Abstract;
 using RentalCar.Business.Utilities.Constants;
-using RentalCar.Business.ValidationRules.FluentValidation;
-using RentalCar.Core.Aspects.Autofac.Validation;
 using RentalCar.Core.Business;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;

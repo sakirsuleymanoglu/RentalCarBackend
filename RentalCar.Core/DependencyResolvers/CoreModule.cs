@@ -3,10 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RentalCar.Core.CrossCuttingCorcerns.Caching;
 using RentalCar.Core.CrossCuttingCorcerns.Caching.Microsoft;
 using RentalCar.Core.Utilities.IoC;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace RentalCar.Core.DependencyResolvers
 {

@@ -1,8 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using RentalCar.Core.Utilities.Interceptors;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Transactions;
 
 namespace RentalCar.Core.Aspects.Autofac.Transaction
@@ -16,13 +14,11 @@ namespace RentalCar.Core.Aspects.Autofac.Transaction
                 try
                 {
                     invocation.Proceed();
-
                     transactionScope.Complete();
                 }
-                catch (System.Exception e)
+                catch (Exception e)
                 {
                     transactionScope.Dispose();
-
                     throw;
                 }
             }

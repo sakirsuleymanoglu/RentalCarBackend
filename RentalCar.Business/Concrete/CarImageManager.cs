@@ -7,7 +7,6 @@ using RentalCar.DataAccess.Abstract;
 using RentalCar.Entities.Concrete;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RentalCar.Business.Concrete
 {

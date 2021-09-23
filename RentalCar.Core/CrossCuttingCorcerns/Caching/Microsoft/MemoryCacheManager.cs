@@ -4,23 +4,22 @@ using RentalCar.Core.Utilities.IoC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace RentalCar.Core.CrossCuttingCorcerns.Caching.Microsoft
 {
     public class MemoryCacheManager : ICacheManager
     {
-        private readonly IMemoryCache _memoryCache;
+        private IMemoryCache _memoryCache;
 
         public MemoryCacheManager()
         {
             _memoryCache = ServiceTool.ServiceProvider.GetService<IMemoryCache>();
         }
 
-        public void Add(string key, object value, int duration)
+        public void Add(string key, object data, int duration)
         {
-            _memoryCache.Set(key, value, TimeSpan.FromMinutes(duration));
+            _memoryCache.Set(key, data, TimeSpan.FromMinutes(duration));
         }
 
         public T Get<T>(string key)
@@ -33,7 +32,7 @@ namespace RentalCar.Core.CrossCuttingCorcerns.Caching.Microsoft
             return _memoryCache.Get(key);
         }
 
-        public bool IsAdd(string key)
+        public bool isAdd(string key)
         {
             return _memoryCache.TryGetValue(key, out _);
         }
@@ -49,17 +48,19 @@ namespace RentalCar.Core.CrossCuttingCorcerns.Caching.Microsoft
 
             var cacheEntriesCollection = cacheEntriesCollectionDefinition.GetValue(_memoryCache) as dynamic;
 
+
             List<ICacheEntry> cacheCollectionValues = new List<ICacheEntry>();
 
             foreach (var cacheItem in cacheEntriesCollection)
             {
+
                 ICacheEntry cacheItemValue = cacheItem.GetType().GetProperty("Value").GetValue(cacheItem, null);
+
 
                 cacheCollectionValues.Add(cacheItemValue);
             }
 
             var regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
             var keysToRemove = cacheCollectionValues.Where(d => regex.IsMatch(d.Key.ToString())).Select(d => d.Key).ToList();
 
             foreach (var key in keysToRemove)

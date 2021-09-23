@@ -1,9 +1,7 @@
 ﻿using Castle.DynamicProxy;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace RentalCar.Core.Utilities.Interceptors
 {
@@ -13,11 +11,11 @@ namespace RentalCar.Core.Utilities.Interceptors
         {
             var classAttributes = type.GetCustomAttributes<MethodInterceptionBaseAttribute>(true).ToList();
 
-            var methodAttributes = type.GetMethod(method.Name).GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
+            var methodAttributes = type.GetMethod(method.Name).GetCustomAttributes<MethodInterceptionBaseAttribute>().ToList();
 
             classAttributes.AddRange(methodAttributes);
 
-            return classAttributes.OrderBy(x=>x.Priority).ToArray();
+            return classAttributes.OrderBy(x => x.Priority).ToArray();
         }
     }
 }

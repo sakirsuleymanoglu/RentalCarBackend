@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using RentalCar.Core.Entities;
-using RentalCar.Core.Utilities.Results;
 
 namespace RentalCar.Core.DataAccess
 {

@@ -4,9 +4,6 @@ using RentalCar.Core.Business;
 using RentalCar.Core.Entities.Concrete;
 using RentalCar.Core.Utilities.Results;
 using RentalCar.DataAccess.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RentalCar.Business.Concrete
 {
